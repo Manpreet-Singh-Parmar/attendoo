@@ -1,0 +1,373 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Course Manager — Attendoo">
+  <header class="sticky top-0 z-40 w-full border-b border-hairline dark:border-[#222] bg-canvas/80 dark:bg-black/80 backdrop-blur-md transition-colors duration-150">
+    <div class="max-w-5xl mx-auto px-4 md:px-6 w-full flex items-center justify-between h-14">
+      <a href="/" class="flex items-center gap-2 font-sans font-semibold tracking-tight text-ink dark:text-white text-base focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none rounded-sm px-1 py-0.5">
+        <img src="/favicon.svg" class="w-5 h-5" alt="Attendoo" />
+        <div class="flex flex-col">
+          <span>Attendoo</span>
+          <span class="text-xs text-body/50 dark:text-gray-500/50 font-normal leading-none">attendance calculator</span>
+        </div>
+      </a>
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="/calculator" class="text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-2.5 py-1.5 rounded-full transition-all">Calculator</a>
+        <a href="/subjects" class="text-xs font-sans bg-canvas-soft-2 dark:bg-[#1a1a1a] text-ink dark:text-white px-2.5 py-1.5 rounded-full transition-all">Courses</a>
+        <a href="/simulator" class="text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-2.5 py-1.5 rounded-full transition-all">Simulator</a>
+        <a href="/analytics" class="text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-2.5 py-1.5 rounded-full transition-all">Analytics</a>
+      </nav>
+      <div class="flex items-center gap-2 sm:gap-3">
+        <div class="lang-dropdown relative">
+          <button id="lang-trigger" class="w-8 h-8 rounded-sm bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] hover:bg-canvas-soft-2 dark:hover:bg-[#1a1a1a] text-ink dark:text-white flex items-center justify-center cursor-pointer transition-all" aria-label="Switch language">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="m10.5 21 5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 0 1-3.827-5.802" /></svg>
+          </button>
+          <div id="lang-menu" class="lang-dropdown-menu hidden"></div>
+        </div>
+        <button id="theme-toggler" class="relative w-8 h-8 rounded-sm bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] hover:bg-canvas-soft-2 dark:hover:bg-[#1a1a1a] text-ink dark:text-white flex items-center justify-center cursor-pointer transition-all" aria-label="Toggle theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 block dark:hidden fill-none stroke-current stroke-2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M16.24 16.24l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" /></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 hidden dark:block fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" /></svg>
+        </button>
+        <button id="mobile-menu-trigger" class="relative w-8 h-8 rounded-sm bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] hover:bg-canvas-soft-2 dark:hover:bg-[#1a1a1a] text-ink dark:text-white flex md:hidden items-center justify-center cursor-pointer transition-all" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="mobile-menu">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path class="line-top transition-all duration-200 origin-center" d="M4 6h16" /><path class="line-mid transition-all duration-200" d="M4 12h16" /><path class="line-bot transition-all duration-200 origin-center" d="M4 18h16" /></svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden border-t border-hairline dark:border-[#222] bg-canvas dark:bg-black md:hidden">
+      <div class="px-4 py-4 flex flex-col gap-2">
+        <a href="/calculator" class="mobile-nav-link text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-4 py-2.5 rounded transition-all">Calculator</a>
+        <a href="/subjects" class="mobile-nav-link text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-4 py-2.5 rounded transition-all">Courses</a>
+        <a href="/simulator" class="mobile-nav-link text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-4 py-2.5 rounded transition-all">Simulator</a>
+        <a href="/analytics" class="mobile-nav-link text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-4 py-2.5 rounded transition-all">Analytics</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" class="flex-grow w-full focus:outline-none">
+    <div class="max-w-5xl mx-auto px-4 md:px-6 py-12">
+      <section id="subject-tracker" class="scroll-mt-20 space-y-6">
+        <div class="flex items-center justify-between border-b border-hairline dark:border-[#222] pb-3">
+          <div>
+            <h2 class="text-xl font-semibold tracking-tight text-ink dark:text-white" data-i18n="subjects.title">Course manager.</h2>
+            <p class="text-xs text-mute dark:text-gray-400 mt-1" data-i18n="subjects.description">Add your courses to log classes attended and classes conducted dynamically.</p>
+          </div>
+          <button id="add-subject-btn" class="bg-primary dark:bg-white text-on-primary dark:text-primary font-medium px-3.5 py-2 rounded-sm text-xs hover:bg-black/90 dark:hover:bg-white/90 shadow-level1 flex items-center gap-1.5 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none cursor-pointer transition-all" data-i18n="subjects.addSubject">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3.5 h-3.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5H4.5" /></svg>
+            Add Subject
+          </button>
+        </div>
+
+        <div id="subjects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-150"></div>
+
+        <div id="subjects-empty-state" class="hidden flex-col items-center justify-center border border-dashed border-hairline dark:border-[#333] rounded-md py-16 text-center space-y-3 bg-canvas dark:bg-[#111]">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-mute dark:text-gray-600" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+          </svg>
+          <div>
+            <h3 class="text-sm font-semibold text-ink dark:text-white" data-i18n="subjects.empty.title">No courses added</h3>
+            <p class="text-xs text-body dark:text-gray-400 max-w-[280px] mt-1" data-i18n="subjects.empty.description">Get started by adding your semester courses to keep a tab on your attendance requirements.</p>
+          </div>
+          <button id="empty-add-btn" class="bg-canvas dark:bg-[#1a1a1a] text-ink dark:text-white border border-hairline dark:border-[#333] hover:bg-canvas-soft-2 dark:hover:bg-[#252525] px-4 py-2 rounded-sm text-xs font-semibold shadow-level1 cursor-pointer transition-all" data-i18n="subjects.empty.button">Add Your First Subject</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-hairline dark:border-[#222] bg-canvas dark:bg-[#0a0a0a] py-12 mt-12">
+    <div class="max-w-5xl mx-auto px-4 md:px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="col-span-2 md:col-span-1">
+          <a href="/" class="flex items-center gap-2 font-sans font-semibold tracking-tight text-ink dark:text-white text-base mb-3">
+            <img src="/favicon.svg" class="w-5 h-5" alt="Attendoo" />
+            <span>Attendoo</span>
+          </a>
+          <p class="text-xs text-body dark:text-gray-400 leading-relaxed" data-i18n="footer.tagline">Free online attendance calculator and tracker for students. Calculate 75% attendance, track multiple subjects, and optimize your class attendance.</p>
+        </div>
+        <div>
+          <h4 class="text-[10px] font-mono text-mute dark:text-gray-500 uppercase tracking-wider mb-3" data-i18n="footer.tools">Tools</h4>
+          <ul class="space-y-2">
+            <li><a href="/calculator" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.calc">Calculator</a></li>
+            <li><a href="/subjects" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.courses">Courses</a></li>
+            <li><a href="/simulator" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.simulator">Simulator</a></li>
+            <li><a href="/analytics" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.analytics">Analytics</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-[10px] font-mono text-mute dark:text-gray-500 uppercase tracking-wider mb-3" data-i18n="footer.quickLinks">Quick Links</h4>
+          <ul class="space-y-2">
+            <li><a href="/settings" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.settings">Settings</a></li>
+            <li><a href="/calculator" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.75calc">75% Calculator</a></li>
+            <li><a href="/simulator" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.bunkCalc">Bunk Calculator</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-[10px] font-mono text-mute dark:text-gray-500 uppercase tracking-wider mb-3" data-i18n="footer.about">About</h4>
+          <p class="text-xs text-body dark:text-gray-400 leading-relaxed" data-i18n="footer.aboutDesc">Attendoo helps students track and optimize their academic attendance with free, privacy-first tools.</p>
+        </div>
+      </div>
+      <div class="mt-10 pt-6 border-t border-hairline dark:border-[#222] flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-[10px] text-mute dark:text-gray-500">&copy; 2026 Attendoo. <span data-i18n="footer.rights">All rights reserved.</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Add Subject Modal -->
+  <div id="add-modal-backdrop" class="fixed inset-0 z-50 hidden bg-[#ffffffbf] dark:bg-[#000000bf] backdrop-blur-sm transition-all duration-150 animate-slide-in" role="dialog" aria-modal="true" aria-labelledby="add-modal-title">
+    <div class="max-w-md mx-auto mt-16 md:mt-32 px-4">
+      <div class="bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] rounded-lg shadow-level5 overflow-hidden flex flex-col p-5 space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 id="add-modal-title" class="text-sm font-semibold tracking-tight uppercase font-mono text-ink dark:text-white" data-i18n="subjects.addModal.title">Add new course</h3>
+          <button id="add-modal-close" class="text-mute hover:text-ink dark:hover:text-white p-1 rounded-sm focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none cursor-pointer transition-all" aria-label="Close add subject dialog">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
+          </button>
+        </div>
+
+        <form id="add-subject-form" class="space-y-4">
+          <div class="space-y-1.5">
+            <label for="sub-name" class="block text-xs font-medium text-body dark:text-gray-400" data-i18n="subjects.addModal.name">Subject Name</label>
+            <input type="text" id="sub-name" required autocomplete="off" data-i18n-placeholder="subjects.addModal.namePlaceholder" placeholder="e.g. Mathematics..." class="w-full bg-canvas dark:bg-[#151515] text-ink dark:text-white border border-hairline dark:border-[#333] rounded-sm h-10 px-3 text-sm focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none transition-all" />
+          </div>
+
+          <div class="grid grid-cols-3 gap-3">
+            <div class="space-y-1.5">
+              <label for="sub-present" class="block text-[10px] font-medium text-body dark:text-gray-400" data-i18n="subjects.addModal.attended">Attended</label>
+              <input type="number" id="sub-present" value="0" min="0" required class="w-full bg-canvas dark:bg-[#151515] text-ink dark:text-white border border-hairline dark:border-[#333] rounded-sm h-10 px-3 text-sm focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none transition-all" />
+            </div>
+            <div class="space-y-1.5">
+              <label for="sub-total" class="block text-[10px] font-medium text-body dark:text-gray-400" data-i18n="subjects.addModal.conducted">Conducted</label>
+              <input type="number" id="sub-total" value="0" min="0" required class="w-full bg-canvas dark:bg-[#151515] text-ink dark:text-white border border-hairline dark:border-[#333] rounded-sm h-10 px-3 text-sm focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none transition-all" />
+            </div>
+            <div class="space-y-1.5">
+              <label for="sub-target" class="block text-[10px] font-medium text-body dark:text-gray-400" data-i18n="subjects.addModal.target">Target %</label>
+              <input type="number" id="sub-target" value="75" min="0" max="100" required class="w-full bg-canvas dark:bg-[#151515] text-ink dark:text-white border border-hairline dark:border-[#333] rounded-sm h-10 px-3 text-sm focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none transition-all" />
+            </div>
+          </div>
+
+          <!-- Instructional text at the bottom of the modal for accessibility -->
+          <p class="text-[10px] text-mute dark:text-gray-500 leading-relaxed" data-i18n="subjects.addModal.help">Enter the course details below. You can adjust attended/conducted counts later from the course cards.</p>
+
+          <button type="submit" class="w-full bg-primary dark:bg-white text-on-primary dark:text-primary font-medium h-10 rounded-sm hover:bg-black/90 dark:hover:bg-white/90 text-sm transition-all focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none cursor-pointer" data-i18n="subjects.addModal.submit">Add Subject</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="aria-announcer" class="sr-only" aria-live="polite"></div>
+</Layout>
+
+<script>
+  import { applyTranslations, setLanguage, getCurrentLang, t, tt, supportedLanguages } from '../lib/i18n';
+  import { loadSubjects, saveSubjects, computeFeedback } from '../lib/store';
+
+  interface Subject {
+    id: string;
+    name: string;
+    present: number;
+    total: number;
+    target: number;
+  }
+
+  let subjects: Subject[] = [];
+
+  const mockSubjects: Subject[] = [
+    { id: '1', name: 'Mathematics', present: 15, total: 20, target: 75 },
+    { id: '2', name: 'Physics', present: 11, total: 18, target: 75 },
+    { id: '3', name: 'Computer Science', present: 22, total: 24, target: 75 }
+  ];
+
+  const container = document.getElementById('subjects-container') as HTMLDivElement;
+  const emptyState = document.getElementById('subjects-empty-state') as HTMLDivElement;
+  const aria = document.getElementById('aria-announcer') as HTMLDivElement;
+  const addModal = document.getElementById('add-modal-backdrop') as HTMLDivElement;
+  const addBtn = document.getElementById('add-subject-btn') as HTMLButtonElement;
+  const emptyAdd = document.getElementById('empty-add-btn') as HTMLButtonElement;
+  const addClose = document.getElementById('add-modal-close') as HTMLButtonElement;
+  const addForm = document.getElementById('add-subject-form') as HTMLFormElement;
+
+  function announce(msg: string) { if (aria) aria.textContent = msg; }
+
+  function initStore() {
+    const stored = loadSubjects();
+    if (stored.length > 0) {
+      subjects = stored;
+    } else {
+      subjects = [...mockSubjects];
+      saveSubjects(subjects);
+    }
+  }
+
+  function syncUI() { renderTracker(); }
+
+  function renderTracker() {
+    if (subjects.length === 0) {
+      container.innerHTML = '';
+      container.classList.add('hidden');
+      emptyState.classList.remove('hidden');
+      return;
+    }
+    container.classList.remove('hidden');
+    emptyState.classList.add('hidden');
+
+    container.innerHTML = subjects.map(subject => {
+      const fb = computeFeedback(subject.present, subject.total, subject.target);
+      const pct = fb.percentage.toFixed(1);
+      const sc = fb.status === 'safe' ? 'text-success border-blue-500/20 bg-blue-500/5 dark:bg-blue-500/10' : 'text-warning border-warning/20 bg-warning/5 dark:bg-warning/10';
+      const pctLimit = Math.min(100, Math.max(0, parseFloat(pct)));
+      const detailedMsg = fb.status === 'risk' && fb.neededFixed !== undefined
+        ? `<span class="block text-[10px] text-mute dark:text-gray-500 font-normal mt-1 leading-normal">Or attend ${fb.neededFixed} more class${fb.neededFixed !== 1 ? 'es' : ''} if total is fixed at ${subject.total} (target: ${fb.targetTotalPresent}).</span>`
+        : (fb.status === 'safe' && fb.extraAttended !== undefined && fb.extraAttended > 0
+          ? `<span class="block text-[10px] text-mute dark:text-gray-500 font-normal mt-1 leading-normal font-sans">Or bunk up to ${fb.extraAttended} class${fb.extraAttended !== 1 ? 'es' : ''} if course total is fixed at ${subject.total}.</span>`
+          : '');
+      return `
+        <div class="bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] rounded-md shadow-level2 hover:shadow-level3 p-5 flex flex-col justify-between transition-all animate-slide-in relative group" data-id="${subject.id}">
+          <div class="space-y-1">
+            <div class="flex items-start justify-between gap-2">
+              <h3 class="font-semibold text-sm tracking-tight truncate text-ink dark:text-white" title="${subject.name}">${subject.name}</h3>
+              <button class="delete-subject-btn text-mute hover:text-error opacity-0 group-hover:opacity-100 focus:opacity-100 p-1 rounded transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-error cursor-pointer" data-id="${subject.id}" aria-label="Delete ${subject.name}">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5"><path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" /></svg>
+              </button>
+            </div>
+            <div class="flex items-center gap-1.5 text-[10px] font-mono text-mute dark:text-gray-500">
+              <span>Target: ${subject.target}%</span>
+              <span>•</span>
+              <span class="tabular-nums">${subject.present} / ${subject.total} classes</span>
+            </div>
+          </div>
+          <div class="my-4 space-y-2">
+            <div class="flex items-baseline justify-between">
+              <span class="text-2xl font-bold tracking-tight tabular-nums text-ink dark:text-white">${pct}%</span>
+              <span class="text-[10px] font-semibold font-mono uppercase px-1.5 py-0.5 rounded border ${sc}">${fb.status === 'safe' ? t('subjects.safe') : t('subjects.risk')}</span>
+            </div>
+            <div class="relative w-full h-1.5 bg-canvas-soft-2 dark:bg-[#1a1a1a] rounded-full overflow-hidden border border-hairline/50 dark:border-[#222]">
+              <div class="h-full rounded-full transition-all duration-300 ${fb.status === 'safe' ? 'bg-success' : 'bg-warning'}" style="width: ${pctLimit}%"></div>
+              <div class="absolute top-0 bottom-0 w-[2px] bg-red-500/60 dark:bg-red-400/80" style="left: ${subject.target}%" title="Target: ${subject.target}%"></div>
+            </div>
+          </div>
+          <div class="space-y-4 pt-3 border-t border-hairline dark:border-[#222]">
+            <div class="grid grid-cols-2 gap-2">
+              <div class="flex flex-col space-y-1">
+                <span class="text-[9px] font-mono text-mute dark:text-gray-500 uppercase tracking-wide">Attended</span>
+                <div class="flex items-center justify-between border border-hairline dark:border-[#333] rounded bg-canvas-soft dark:bg-[#161616] p-0.5 h-8">
+                  <button class="adjust-btn w-6 h-full text-xs font-semibold hover:bg-canvas dark:hover:bg-[#252525] rounded transition-all cursor-pointer flex items-center justify-center text-body hover:text-ink dark:hover:text-white" data-id="${subject.id}" data-type="present" data-op="dec" aria-label="Decrease attended">−</button>
+                  <span class="text-xs font-mono font-semibold tabular-nums px-1 text-ink dark:text-white">${subject.present}</span>
+                  <button class="adjust-btn w-6 h-full text-xs font-semibold hover:bg-canvas dark:hover:bg-[#252525] rounded transition-all cursor-pointer flex items-center justify-center text-body hover:text-ink dark:hover:text-white" data-id="${subject.id}" data-type="present" data-op="inc" aria-label="Increase attended">+</button>
+                </div>
+              </div>
+              <div class="flex flex-col space-y-1">
+                <span class="text-[9px] font-mono text-mute dark:text-gray-500 uppercase tracking-wide">Conducted</span>
+                <div class="flex items-center justify-between border border-hairline dark:border-[#333] rounded bg-canvas-soft dark:bg-[#161616] p-0.5 h-8">
+                  <button class="adjust-btn w-6 h-full text-xs font-semibold hover:bg-canvas dark:hover:bg-[#252525] rounded transition-all cursor-pointer flex items-center justify-center text-body hover:text-ink dark:hover:text-white" data-id="${subject.id}" data-type="total" data-op="dec" aria-label="Decrease conducted">−</button>
+                  <span class="text-xs font-mono font-semibold tabular-nums px-1 text-ink dark:text-white">${subject.total}</span>
+                  <button class="adjust-btn w-6 h-full text-xs font-semibold hover:bg-canvas dark:hover:bg-[#252525] rounded transition-all cursor-pointer flex items-center justify-center text-body hover:text-ink dark:hover:text-white" data-id="${subject.id}" data-type="total" data-op="inc" aria-label="Increase conducted">+</button>
+                </div>
+              </div>
+            </div>
+            <p class="text-xs text-body dark:text-gray-400 font-medium leading-tight">
+              ${fb.message}
+              ${detailedMsg}
+            </p>
+          </div>
+        </div>`;
+    }).join('');
+
+    document.querySelectorAll('.adjust-btn').forEach(btn => btn.addEventListener('click', handleAdjust));
+    document.querySelectorAll('.delete-subject-btn').forEach(btn => btn.addEventListener('click', handleDelete));
+  }
+
+  function handleAdjust(e: Event) {
+    const btn = e.currentTarget as HTMLButtonElement;
+    const id = btn.getAttribute('data-id');
+    const type = btn.getAttribute('data-type') as 'present' | 'total';
+    const op = btn.getAttribute('data-op') as 'inc' | 'dec';
+    const sub = subjects.find(s => s.id === id);
+    if (!sub) return;
+    if (type === 'present') {
+      if (op === 'inc') { sub.present++; if (sub.present > sub.total) sub.total = sub.present; }
+      else { if (sub.present > 0) sub.present--; }
+    } else {
+      if (op === 'inc') sub.total++;
+      else { if (sub.total > 0) sub.total--; if (sub.total < sub.present) sub.present = sub.total; }
+    }
+    saveSubjects(subjects);
+    syncUI();
+    announce(tt('announcer.updated', { name: sub.name }));
+  }
+
+  function handleDelete(e: Event) {
+    const btn = e.currentTarget as HTMLButtonElement;
+    const id = btn.getAttribute('data-id');
+    const sub = subjects.find(s => s.id === id);
+    if (!sub || !confirm(tt('confirm.delete', { name: sub.name }))) return;
+    subjects = subjects.filter(s => s.id !== id);
+    saveSubjects(subjects);
+    syncUI();
+    announce(tt('announcer.deleted', { name: sub.name }));
+  }
+
+  function openModal() {
+    addModal.classList.remove('hidden');
+    (document.getElementById('sub-name') as HTMLInputElement).focus();
+    announce(t('announcer.dialogOpened'));
+  }
+
+  function closeModal() { addModal.classList.add('hidden'); }
+
+  addBtn?.addEventListener('click', openModal);
+  emptyAdd?.addEventListener('click', openModal);
+  addClose?.addEventListener('click', closeModal);
+  addModal?.addEventListener('mousedown', (e) => { if (e.target === addModal) closeModal(); });
+
+  addForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = (document.getElementById('sub-name') as HTMLInputElement).value.trim();
+    const present = parseInt((document.getElementById('sub-present') as HTMLInputElement).value, 10) || 0;
+    const total = parseInt((document.getElementById('sub-total') as HTMLInputElement).value, 10) || 0;
+    const target = parseInt((document.getElementById('sub-target') as HTMLInputElement).value, 10) || 75;
+    if (!name) return;
+    if (present > total) { alert('Attended cannot exceed total.'); return; }
+    subjects.push({ id: Date.now().toString(), name, present, total, target });
+    saveSubjects(subjects);
+    syncUI();
+    closeModal();
+    (document.getElementById('sub-name') as HTMLInputElement).value = '';
+    (document.getElementById('sub-present') as HTMLInputElement).value = '0';
+    (document.getElementById('sub-total') as HTMLInputElement).value = '0';
+    (document.getElementById('sub-target') as HTMLInputElement).value = '75';
+    announce(tt('announcer.added', { name }));
+  });
+
+  // Theme
+  document.getElementById('theme-toggler')?.addEventListener('click', () => {
+    document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+  });
+
+  // Mobile
+  const mt = document.getElementById('mobile-menu-trigger');
+  const mm = document.getElementById('mobile-menu');
+  mt?.addEventListener('click', () => { mm.classList.toggle('hidden'); mt.setAttribute('aria-expanded', (!mm.classList.contains('hidden')).toString()); });
+  document.querySelectorAll('.mobile-nav-link').forEach(l => l.addEventListener('click', () => { mm.classList.add('hidden'); mt.setAttribute('aria-expanded', 'false'); }));
+
+  // Lang
+  const lt = document.getElementById('lang-trigger');
+  const lm = document.getElementById('lang-menu');
+  lt?.addEventListener('click', () => lm.classList.toggle('hidden'));
+  document.addEventListener('click', (e) => { if (!e.target.closest('.lang-dropdown')) lm?.classList.add('hidden'); });
+
+  function populateLanguageMenus() {
+    const currentLang = getCurrentLang();
+    if (lm) {
+      lm.innerHTML = supportedLanguages.map(l =>
+        `<button data-lang="${l.code}" class="${l.code === currentLang ? 'active' : ''}">${l.name}</button>`
+      ).join('');
+      lm.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { const l = b.getAttribute('data-lang'); if (l) setLanguage(l); }));
+    }
+  }
+  populateLanguageMenus();
+
+  initStore();
+  syncUI();
+  applyTranslations();
+</script>

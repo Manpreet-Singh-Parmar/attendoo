@@ -1,0 +1,318 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Calculator — Attendoo">
+  <header class="sticky top-0 z-40 w-full border-b border-hairline dark:border-[#222] bg-canvas/80 dark:bg-black/80 backdrop-blur-md transition-colors duration-150">
+    <div class="max-w-5xl mx-auto px-4 md:px-6 w-full flex items-center justify-between h-14">
+      <a href="/" class="flex items-center gap-2 font-sans font-semibold tracking-tight text-ink dark:text-white text-base focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none rounded-sm px-1 py-0.5">
+        <img src="/favicon.svg" class="w-5 h-5" alt="Attendoo" />
+        <div class="flex flex-col">
+          <span>Attendoo</span>
+          <span class="text-xs text-body/50 dark:text-gray-500/50 font-normal leading-none">attendance calculator</span>
+        </div>
+      </a>
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="/calculator" class="text-xs font-sans bg-canvas-soft-2 dark:bg-[#1a1a1a] text-ink dark:text-white px-2.5 py-1.5 rounded-full transition-all" data-i18n="nav.calculator">Calculator</a>
+        <a href="/subjects" class="text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-2.5 py-1.5 rounded-full transition-all" data-i18n="nav.tracker">Courses</a>
+        <a href="/simulator" class="text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-2.5 py-1.5 rounded-full transition-all" data-i18n="nav.simulator">Simulator</a>
+        <a href="/analytics" class="text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-2.5 py-1.5 rounded-full transition-all" data-i18n="nav.analytics">Analytics</a>
+      </nav>
+      <div class="flex items-center gap-2 sm:gap-3">
+        <div class="lang-dropdown relative">
+          <button id="lang-trigger" class="w-8 h-8 rounded-sm bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] hover:bg-canvas-soft-2 dark:hover:bg-[#1a1a1a] text-ink dark:text-white flex items-center justify-center cursor-pointer transition-all focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none" aria-label="Switch language">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m10.5 21 5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 0 1-3.827-5.802" />
+            </svg>
+          </button>
+          <div id="lang-menu" class="lang-dropdown-menu hidden"></div>
+        </div>
+        <button id="theme-toggler" class="relative w-8 h-8 rounded-sm bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] hover:bg-canvas-soft-2 dark:hover:bg-[#1a1a1a] text-ink dark:text-white flex items-center justify-center cursor-pointer transition-all focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none" aria-label="Toggle theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 block dark:hidden fill-none stroke-current stroke-2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M16.24 16.24l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" /></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 hidden dark:block fill-none stroke-current stroke-2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" /></svg>
+        </button>
+        <button id="mobile-menu-trigger" class="relative w-8 h-8 rounded-sm bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] hover:bg-canvas-soft-2 dark:hover:bg-[#1a1a1a] text-ink dark:text-white flex md:hidden items-center justify-center cursor-pointer transition-all focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="mobile-menu">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24" aria-hidden="true"><path class="line-top transition-all duration-200 origin-center" d="M4 6h16" /><path class="line-mid transition-all duration-200" d="M4 12h16" /><path class="line-bot transition-all duration-200 origin-center" d="M4 18h16" /></svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden border-t border-hairline dark:border-[#222] bg-canvas dark:bg-black md:hidden">
+      <div class="px-4 py-4 flex flex-col gap-2">
+        <a href="/calculator" class="mobile-nav-link text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-4 py-2.5 rounded transition-all">Calculator</a>
+        <a href="/subjects" class="mobile-nav-link text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-4 py-2.5 rounded transition-all">Courses</a>
+        <a href="/simulator" class="mobile-nav-link text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-4 py-2.5 rounded transition-all">Simulator</a>
+        <a href="/analytics" class="mobile-nav-link text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-4 py-2.5 rounded transition-all">Analytics</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" class="flex-grow w-full focus:outline-none">
+    <div class="max-w-5xl mx-auto px-4 md:px-6 py-12">
+      <section id="quick-calculator" class="scroll-mt-20 space-y-6">
+        <div class="flex items-baseline justify-between border-b border-hairline dark:border-[#222] pb-3">
+          <h2 class="text-xl font-semibold tracking-tight text-ink dark:text-white" data-i18n="calculator.title">Instant calculator.</h2>
+        </div>
+
+        <!-- 75% Quick Mode One-Liner Card -->
+        <div class="bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] rounded-md p-5 space-y-4 shadow-level2 transition-all">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <div class="flex items-center gap-2">
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-primary dark:bg-white text-on-primary dark:text-primary tracking-wide" data-i18n="calculator.quickMode">75% QUICK MODE</span>
+              <span class="text-xs font-sans font-medium text-body dark:text-gray-400" data-i18n="calculator.oneLinerLabel">One-liner interactive calculator</span>
+            </div>
+            <span class="text-[10px] font-mono text-mute dark:text-gray-500" data-i18n="calculator.format">FORMAT: ATTENDED/TOTAL</span>
+          </div>
+          <div class="relative">
+            <input type="text" id="quick-one-liner-input" data-i18n-placeholder="calculator.placeholder" placeholder="Type attendance, e.g., 13/20 or 15 out of 20..." autocomplete="off" class="w-full bg-canvas-soft-2 dark:bg-[#151515] text-ink dark:text-white border border-hairline dark:border-[#333] rounded-sm h-11 px-3.5 text-sm font-mono placeholder:font-sans focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none transition-all placeholder:text-mute dark:placeholder:text-gray-600" />
+          </div>
+          <div id="quick-one-liner-result-container" class="hidden animate-slide-in p-3.5 rounded border border-hairline dark:border-[#222] bg-canvas-soft dark:bg-[#141414] transition-colors duration-150">
+            <p id="quick-one-liner-result" class="text-xs leading-relaxed text-body dark:text-gray-300 font-medium"></p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <!-- Calc form card -->
+          <div class="lg:col-span-5 bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] rounded-md shadow-level2 p-5 md:p-6 space-y-5 transition-all">
+            <h3 class="text-sm font-medium text-ink dark:text-white uppercase tracking-wider font-mono" data-i18n="calculator.inputParams">Input parameters</h3>
+            <form id="quick-calc-form" class="space-y-4">
+              <div class="space-y-1.5">
+                <label for="quick-target" class="block text-xs font-medium text-body dark:text-gray-400" data-i18n="calculator.target">Target Attendance (%)</label>
+                <select id="quick-target" class="w-full bg-canvas dark:bg-[#151515] text-ink dark:text-white border border-hairline dark:border-[#333] rounded-sm h-10 px-3 text-sm focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none transition-all cursor-pointer">
+                  <option value="60">60%</option>
+                  <option value="65">65%</option>
+                  <option value="70">70%</option>
+                  <option value="75" selected>75% (Standard)</option>
+                  <option value="80">80%</option>
+                  <option value="85">85%</option>
+                  <option value="90">90%</option>
+                  <option value="95">95%</option>
+                </select>
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div class="space-y-1.5">
+                  <label for="quick-present" class="block text-xs font-medium text-body dark:text-gray-400" data-i18n="calculator.attended">Classes Attended</label>
+                  <input type="number" id="quick-present" placeholder="e.g. 15..." min="0" required autocomplete="off" class="w-full bg-canvas dark:bg-[#151515] text-ink dark:text-white border border-hairline dark:border-[#333] rounded-sm h-10 px-3 text-sm focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none transition-all" />
+                </div>
+                <div class="space-y-1.5">
+                  <label for="quick-total" class="block text-xs font-medium text-body dark:text-gray-400" data-i18n="calculator.total">Total Conducted</label>
+                  <input type="number" id="quick-total" placeholder="e.g. 20..." min="0" required autocomplete="off" class="w-full bg-canvas dark:bg-[#151515] text-ink dark:text-white border border-hairline dark:border-[#333] rounded-sm h-10 px-3 text-sm focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none transition-all" />
+                </div>
+              </div>
+              <button type="submit" class="w-full bg-primary dark:bg-white text-on-primary dark:text-primary font-medium h-10 rounded-sm hover:bg-black/90 dark:hover:bg-white/90 text-sm transition-all focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none cursor-pointer" data-i18n="calculator.calculate">Calculate</button>
+            </form>
+          </div>
+
+          <!-- Calc result card -->
+          <div class="lg:col-span-7 flex flex-col justify-between bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] rounded-md shadow-level2 p-5 md:p-6 min-h-[220px] transition-all">
+            <div id="quick-calc-initial" class="flex flex-col items-center justify-center h-full text-center space-y-2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-mute dark:text-gray-600" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 15.75V18m-3-9.75v9.75m-3-3v3m3.01-12.75H18c.621 0 1.125.504 1.125 1.125V18a1.125 1.125 0 0 1-1.125 1.125H5.625A1.125 1.125 0 0 1 4.5 18V6.25c0-.621.504-1.125 1.125-1.125h5.06l3 3Z" />
+              </svg>
+              <p class="text-sm text-body dark:text-gray-400" data-i18n="calculator.initialMessage">Enter attendance parameters to display optimization feedback.</p>
+            </div>
+            <div id="quick-calc-result" class="hidden space-y-5 h-full animate-slide-in">
+              <div class="flex items-center justify-between border-b border-hairline dark:border-[#222] pb-3">
+                <div>
+                  <h4 class="text-[10px] font-mono text-mute dark:text-gray-500 uppercase tracking-widest" data-i18n="calculator.currentAttendance">Current Attendance</h4>
+                  <span id="quick-percent-val" class="text-3xl font-semibold tracking-tight tabular-nums text-ink dark:text-white">0%</span>
+                </div>
+                <div class="text-right">
+                  <h4 class="text-[10px] font-mono text-mute dark:text-gray-500 uppercase tracking-widest" data-i18n="calculator.status">Status</h4>
+                  <span id="quick-status-badge" class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium border uppercase mt-1">Pending</span>
+                </div>
+              </div>
+              <div id="quick-result-callout" class="p-4 rounded border transition-colors duration-150">
+                <h5 id="quick-result-title" class="text-sm font-semibold tracking-tight mb-1 text-ink dark:text-white" data-i18n="calculator.resultTitle">Calculating...</h5>
+                <p id="quick-result-desc" class="text-xs leading-relaxed text-body dark:text-gray-400">Please provide inputs.</p>
+              </div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                <div class="bg-canvas-soft-2 dark:bg-[#181818] p-2.5 rounded border border-hairline dark:border-[#222]">
+                  <span class="text-[9px] font-mono text-mute dark:text-gray-500 block uppercase" data-i18n="calculator.conducted">Conducted</span>
+                  <span id="quick-conducted-val" class="font-semibold tabular-nums text-ink dark:text-white">0</span>
+                </div>
+                <div class="bg-canvas-soft-2 dark:bg-[#181818] p-2.5 rounded border border-hairline dark:border-[#222]">
+                  <span class="text-[9px] font-mono text-mute dark:text-gray-500 block uppercase" data-i18n="calculator.attendedLabel">Attended</span>
+                  <span id="quick-attended-val" class="font-semibold tabular-nums text-ink dark:text-white">0</span>
+                </div>
+                <div class="bg-canvas-soft-2 dark:bg-[#181818] p-2.5 rounded border border-hairline dark:border-[#222]">
+                  <span class="text-[9px] font-mono text-mute dark:text-gray-500 block uppercase" data-i18n="calculator.targetLabel">Target</span>
+                  <span id="quick-target-val" class="font-semibold tabular-nums text-ink dark:text-white">0%</span>
+                </div>
+                <div class="bg-canvas-soft-2 dark:bg-[#181818] p-2.5 rounded border border-hairline dark:border-[#222]">
+                  <span id="quick-action-label" class="text-[9px] font-mono text-mute dark:text-gray-500 block uppercase" data-i18n="calculator.required">Required</span>
+                  <span id="quick-action-val" class="font-semibold tabular-nums text-ink dark:text-white">0</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-hairline dark:border-[#222] bg-canvas dark:bg-[#0a0a0a] py-12 mt-12">
+    <div class="max-w-5xl mx-auto px-4 md:px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="col-span-2 md:col-span-1">
+          <a href="/" class="flex items-center gap-2 font-sans font-semibold tracking-tight text-ink dark:text-white text-base mb-3">
+            <img src="/favicon.svg" class="w-5 h-5" alt="Attendoo" />
+            <span>Attendoo</span>
+          </a>
+          <p class="text-xs text-body dark:text-gray-400 leading-relaxed" data-i18n="footer.tagline">Free online attendance calculator and tracker for students. Calculate 75% attendance, track multiple subjects, and optimize your class attendance.</p>
+        </div>
+        <div>
+          <h4 class="text-[10px] font-mono text-mute dark:text-gray-500 uppercase tracking-wider mb-3" data-i18n="footer.tools">Tools</h4>
+          <ul class="space-y-2">
+            <li><a href="/calculator" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.calc">Calculator</a></li>
+            <li><a href="/subjects" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.courses">Courses</a></li>
+            <li><a href="/simulator" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.simulator">Simulator</a></li>
+            <li><a href="/analytics" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.analytics">Analytics</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-[10px] font-mono text-mute dark:text-gray-500 uppercase tracking-wider mb-3" data-i18n="footer.quickLinks">Quick Links</h4>
+          <ul class="space-y-2">
+            <li><a href="/settings" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.settings">Settings</a></li>
+            <li><a href="/calculator" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.75calc">75% Calculator</a></li>
+            <li><a href="/simulator" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.bunkCalc">Bunk Calculator</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-[10px] font-mono text-mute dark:text-gray-500 uppercase tracking-wider mb-3" data-i18n="footer.about">About</h4>
+          <p class="text-xs text-body dark:text-gray-400 leading-relaxed" data-i18n="footer.aboutDesc">Attendoo helps students track and optimize their academic attendance with free, privacy-first tools.</p>
+        </div>
+      </div>
+      <div class="mt-10 pt-6 border-t border-hairline dark:border-[#222] flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-[10px] text-mute dark:text-gray-500">&copy; 2026 Attendoo. <span data-i18n="footer.rights">All rights reserved.</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <div id="aria-announcer" class="sr-only" aria-live="polite"></div>
+</Layout>
+
+<script>
+  import { applyTranslations, setLanguage, getCurrentLang, t, tt, supportedLanguages } from '../lib/i18n';
+  import { computeFeedback } from '../lib/store';
+
+  // Theme
+  document.getElementById('theme-toggler')?.addEventListener('click', () => {
+    const isDark = document.documentElement.classList.contains('dark');
+    document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', isDark ? 'light' : 'dark');
+  });
+
+  // Mobile menu
+  const mobileTrigger = document.getElementById('mobile-menu-trigger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  mobileTrigger?.addEventListener('click', () => {
+    const h = mobileMenu.classList.contains('hidden');
+    mobileMenu.classList.toggle('hidden');
+    mobileTrigger.setAttribute('aria-expanded', (!h).toString());
+  });
+  document.querySelectorAll('.mobile-nav-link').forEach(l => l.addEventListener('click', () => {
+    mobileMenu.classList.add('hidden');
+    mobileTrigger.setAttribute('aria-expanded', 'false');
+  }));
+
+  // Language switcher
+  const langTrigger = document.getElementById('lang-trigger');
+  const langMenu = document.getElementById('lang-menu');
+  langTrigger?.addEventListener('click', () => langMenu.classList.toggle('hidden'));
+  document.addEventListener('click', (e) => { if (!e.target.closest('.lang-dropdown')) langMenu?.classList.add('hidden'); });
+
+  function populateLanguageMenus() {
+    const currentLang = getCurrentLang();
+    if (langMenu) {
+      langMenu.innerHTML = supportedLanguages.map(l =>
+        `<button data-lang="${l.code}" class="${l.code === currentLang ? 'active' : ''}">${l.name}</button>`
+      ).join('');
+      langMenu.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', () => { const l = btn.getAttribute('data-lang'); if (l) setLanguage(l); });
+      });
+    }
+  }
+  populateLanguageMenus();
+
+  const aria = document.getElementById('aria-announcer');
+  function announce(msg: string) { if (aria) aria.textContent = msg; }
+
+  // One-liner
+  const olInput = document.getElementById('quick-one-liner-input') as HTMLInputElement;
+  const olResult = document.getElementById('quick-one-liner-result-container') as HTMLDivElement;
+  const olText = document.getElementById('quick-one-liner-result') as HTMLParagraphElement;
+  olInput?.addEventListener('input', () => {
+    const raw = olInput.value.trim();
+    if (!raw) { olResult.classList.add('hidden'); return; }
+    const m = raw.match(/(\d+)\s*(?:\/|out\s+of|of)\s*(\d+)/i);
+    if (!m) {
+      olResult.classList.remove('hidden');
+      olResult.className = 'animate-slide-in p-3.5 rounded border border-hairline dark:border-[#222] bg-canvas-soft dark:bg-[#141414]';
+      olText.innerHTML = 'Invalid format. Use e.g. <strong>13/20</strong> or <strong>15 out of 20</strong>.';
+      return;
+    }
+    const p = parseInt(m[1], 10), t = parseInt(m[2], 10);
+    if (t === 0 || p > t) {
+      olResult.classList.remove('hidden');
+      olResult.className = 'animate-slide-in p-3.5 rounded border border-hairline dark:border-[#222] bg-canvas-soft dark:bg-[#141414]';
+      olText.innerHTML = p > t ? 'Attended cannot exceed total classes.' : 'Total classes cannot be zero.';
+      return;
+    }
+    const fb = computeFeedback(p, t, 75);
+    const sc = fb.status === 'safe' ? 'text-success border-blue-500/20 bg-blue-500/5 dark:bg-blue-500/10' : 'text-warning border-warning/20 bg-warning/5 dark:bg-warning/10';
+    olResult.classList.remove('hidden');
+    olResult.className = `animate-slide-in p-3.5 rounded border ${sc}`;
+    olText.innerHTML = `<strong class="text-ink dark:text-white">${fb.percentage.toFixed(1)}%</strong> &mdash; ${fb.message} <span class="block text-[10px] text-mute dark:text-gray-500 mt-0.5">${p}/${t} classes</span>`;
+  });
+
+  // Full form calculator
+  const quickForm = document.getElementById('quick-calc-form') as HTMLFormElement;
+  const quickInitial = document.getElementById('quick-calc-initial') as HTMLDivElement;
+  const quickResult = document.getElementById('quick-calc-result') as HTMLDivElement;
+  const qPercent = document.getElementById('quick-percent-val') as HTMLSpanElement;
+  const qStatus = document.getElementById('quick-status-badge') as HTMLSpanElement;
+  const qCallout = document.getElementById('quick-result-callout') as HTMLDivElement;
+  const qTitle = document.getElementById('quick-result-title') as HTMLHeadingElement;
+  const qDesc = document.getElementById('quick-result-desc') as HTMLParagraphElement;
+  const qConducted = document.getElementById('quick-conducted-val') as HTMLSpanElement;
+  const qAttended = document.getElementById('quick-attended-val') as HTMLSpanElement;
+  const qTarget = document.getElementById('quick-target-val') as HTMLSpanElement;
+  const qActionLabel = document.getElementById('quick-action-label') as HTMLSpanElement;
+  const qActionVal = document.getElementById('quick-action-val') as HTMLSpanElement;
+
+  quickForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const target = parseInt((document.getElementById('quick-target') as HTMLSelectElement).value, 10);
+    const present = parseInt((document.getElementById('quick-present') as HTMLInputElement).value, 10) || 0;
+    const total = parseInt((document.getElementById('quick-total') as HTMLInputElement).value, 10) || 0;
+    if (present > total) { alert('Classes attended cannot be greater than total conducted.'); return; }
+    const fb = computeFeedback(present, total, target);
+    qPercent.textContent = `${fb.percentage.toFixed(1)}%`;
+    qConducted.textContent = total.toString();
+    qAttended.textContent = present.toString();
+    qTarget.textContent = `${target}%`;
+    if (fb.status === 'safe') {
+      qStatus.textContent = t('calculator.safe');
+      qStatus.className = 'inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold border uppercase mt-1 text-success border-blue-500/20 bg-blue-500/5 dark:bg-blue-500/10';
+      qCallout.className = 'p-4 rounded border border-blue-500/20 bg-blue-500/5 dark:bg-blue-500/10 transition-colors duration-150';
+      qTitle.textContent = fb.message;
+      qDesc.innerHTML = fb.detail;
+      qActionLabel.textContent = t('calculator.canBunk');
+      qActionVal.textContent = fb.classes.toString();
+    } else {
+      qStatus.textContent = t('calculator.risk');
+      qStatus.className = 'inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold border uppercase mt-1 text-warning border-warning/20 bg-warning/5 dark:bg-warning/10';
+      qCallout.className = 'p-4 rounded border border-warning/20 bg-warning/5 dark:bg-warning/10 transition-colors duration-150';
+      qTitle.textContent = fb.message;
+      qDesc.innerHTML = fb.detail;
+      qActionLabel.textContent = t('calculator.toAttend');
+      qActionVal.textContent = fb.classes.toString();
+    }
+    quickInitial.classList.add('hidden');
+    quickResult.classList.remove('hidden');
+    announce(tt('announcer.calcResult', { pct: fb.percentage.toFixed(1), status: fb.status.toUpperCase() }));
+  });
+
+  applyTranslations();
+</script>

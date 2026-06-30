@@ -1,0 +1,322 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Attendance Simulator — Attendoo">
+  <header class="sticky top-0 z-40 w-full border-b border-hairline dark:border-[#222] bg-canvas/80 dark:bg-black/80 backdrop-blur-md transition-colors duration-150">
+    <div class="max-w-5xl mx-auto px-4 md:px-6 w-full flex items-center justify-between h-14">
+      <a href="/" class="flex items-center gap-2 font-sans font-semibold tracking-tight text-ink dark:text-white text-base focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none rounded-sm px-1 py-0.5">
+        <img src="/favicon.svg" class="w-5 h-5" alt="Attendoo" />
+        <div class="flex flex-col">
+          <span>Attendoo</span>
+          <span class="text-xs text-body/50 dark:text-gray-500/50 font-normal leading-none">attendance calculator</span>
+        </div>
+      </a>
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="/calculator" class="text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-2.5 py-1.5 rounded-full transition-all">Calculator</a>
+        <a href="/subjects" class="text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-2.5 py-1.5 rounded-full transition-all">Courses</a>
+        <a href="/simulator" class="text-xs font-sans bg-canvas-soft-2 dark:bg-[#1a1a1a] text-ink dark:text-white px-2.5 py-1.5 rounded-full transition-all">Simulator</a>
+        <a href="/analytics" class="text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-2.5 py-1.5 rounded-full transition-all">Analytics</a>
+      </nav>
+      <div class="flex items-center gap-2 sm:gap-3">
+        <div class="lang-dropdown relative">
+          <button id="lang-trigger" class="w-8 h-8 rounded-sm bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] hover:bg-canvas-soft-2 dark:hover:bg-[#1a1a1a] text-ink dark:text-white flex items-center justify-center cursor-pointer transition-all" aria-label="Switch language">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="m10.5 21 5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 0 1-3.827-5.802" /></svg>
+          </button>
+          <div id="lang-menu" class="lang-dropdown-menu hidden"></div>
+        </div>
+        <button id="theme-toggler" class="relative w-8 h-8 rounded-sm bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] hover:bg-canvas-soft-2 dark:hover:bg-[#1a1a1a] text-ink dark:text-white flex items-center justify-center cursor-pointer transition-all" aria-label="Toggle theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 block dark:hidden fill-none stroke-current stroke-2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M16.24 16.24l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" /></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 hidden dark:block fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" /></svg>
+        </button>
+        <button id="mobile-menu-trigger" class="relative w-8 h-8 rounded-sm bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] hover:bg-canvas-soft-2 dark:hover:bg-[#1a1a1a] text-ink dark:text-white flex md:hidden items-center justify-center cursor-pointer transition-all" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="mobile-menu">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path class="line-top transition-all duration-200 origin-center" d="M4 6h16" /><path class="line-mid transition-all duration-200" d="M4 12h16" /><path class="line-bot transition-all duration-200 origin-center" d="M4 18h16" /></svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden border-t border-hairline dark:border-[#222] bg-canvas dark:bg-black md:hidden">
+      <div class="px-4 py-4 flex flex-col gap-2">
+        <a href="/calculator" class="mobile-nav-link text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-4 py-2.5 rounded transition-all">Calculator</a>
+        <a href="/subjects" class="mobile-nav-link text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-4 py-2.5 rounded transition-all">Courses</a>
+        <a href="/simulator" class="mobile-nav-link text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-4 py-2.5 rounded transition-all">Simulator</a>
+        <a href="/analytics" class="mobile-nav-link text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-4 py-2.5 rounded transition-all">Analytics</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" class="flex-grow w-full focus:outline-none">
+    <div class="max-w-5xl mx-auto px-4 md:px-6 py-12">
+      <section id="simulator" class="scroll-mt-20 space-y-6">
+        <div class="flex items-baseline justify-between border-b border-hairline dark:border-[#222] pb-3">
+          <div>
+            <h2 class="text-xl font-semibold tracking-tight text-ink dark:text-white" data-i18n="simulator.title">Attendance simulator.</h2>
+            <p class="text-xs text-mute dark:text-gray-400 mt-1" data-i18n="simulator.description">Predict how attendance changes if you attend or miss upcoming classes.</p>
+          </div>
+        </div>
+
+        <div class="bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] rounded-md shadow-level2 p-5 md:p-6 space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+            <!-- Inputs column -->
+            <div class="md:col-span-5 space-y-4">
+              <div class="space-y-1.5">
+                <label for="sim-subject-select" class="block text-xs font-medium text-body dark:text-gray-400" data-i18n="simulator.selectCourse">Select Tracked Course</label>
+                <select id="sim-subject-select" class="w-full bg-canvas dark:bg-[#151515] text-ink dark:text-white border border-hairline dark:border-[#333] rounded-sm h-10 px-3 text-sm focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none cursor-pointer transition-all">
+                  <option value="custom" data-i18n="simulator.custom">-- Custom Calculations --</option>
+                </select>
+              </div>
+
+              <div id="sim-custom-inputs" class="grid grid-cols-3 gap-3">
+                <div class="space-y-1.5">
+                  <label for="sim-custom-present" class="block text-[10px] font-medium text-body dark:text-gray-400" data-i18n="simulator.attended">Attended</label>
+                  <input type="number" id="sim-custom-present" value="0" min="0" class="w-full bg-canvas dark:bg-[#151515] text-ink dark:text-white border border-hairline dark:border-[#333] rounded-sm h-9 px-2 text-xs focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none transition-all" />
+                </div>
+                <div class="space-y-1.5">
+                  <label for="sim-custom-total" class="block text-[10px] font-medium text-body dark:text-gray-400" data-i18n="simulator.conducted">Conducted</label>
+                  <input type="number" id="sim-custom-total" value="0" min="0" class="w-full bg-canvas dark:bg-[#151515] text-ink dark:text-white border border-hairline dark:border-[#333] rounded-sm h-9 px-2 text-xs focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none transition-all" />
+                </div>
+                <div class="space-y-1.5">
+                  <label for="sim-custom-target" class="block text-[10px] font-medium text-body dark:text-gray-400" data-i18n="simulator.target">Target %</label>
+                  <input type="number" id="sim-custom-target" value="75" min="0" max="100" class="w-full bg-canvas dark:bg-[#151515] text-ink dark:text-white border border-hairline dark:border-[#333] rounded-sm h-9 px-2 text-xs focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none transition-all" />
+                </div>
+              </div>
+
+              <!-- Custom radio buttons for Choose Action -->
+              <div class="space-y-2">
+                <span class="block text-xs font-medium text-body dark:text-gray-400" data-i18n="simulator.chooseAction">Choose Action</span>
+                <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-6">
+                  <label class="custom-radio">
+                    <input type="radio" name="sim-action" value="attend" checked />
+                    <span class="radio-circle"></span>
+                    <span data-i18n="simulator.attend">Attend next classes</span>
+                  </label>
+                  <label class="custom-radio">
+                    <input type="radio" name="sim-action" value="bunk" />
+                    <span class="radio-circle"></span>
+                    <span data-i18n="simulator.bunk">Bunk next classes</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="space-y-2">
+                <div class="flex items-center justify-between text-xs">
+                  <label for="sim-class-count" class="font-medium text-body dark:text-gray-400" data-i18n="simulator.numClasses">Number of Classes</label>
+                  <span id="sim-class-count-label" class="font-semibold text-ink dark:text-white font-mono bg-canvas-soft-2 dark:bg-[#1a1a1a] px-1.5 py-0.5 rounded border border-hairline dark:border-[#222]">5</span>
+                </div>
+                <input type="range" id="sim-class-count" min="1" max="30" value="5" class="w-full h-1.5 bg-hairline dark:bg-[#333] rounded-lg appearance-none cursor-pointer accent-primary focus-visible:outline-none" aria-label="Number of classes" />
+              </div>
+            </div>
+
+            <!-- Output column -->
+            <div class="md:col-span-7 bg-canvas-soft dark:bg-[#0c0c0c] border border-hairline dark:border-[#222] rounded p-5 space-y-4">
+              <h4 class="text-xs font-semibold text-ink dark:text-white font-mono uppercase tracking-wider" data-i18n="simulator.outcome">Simulated outcome</h4>
+
+              <div class="grid grid-cols-2 gap-4">
+                <div class="space-y-1">
+                  <span class="text-[10px] text-mute dark:text-gray-500 uppercase font-mono block" data-i18n="simulator.currentPct">Current Percentage</span>
+                  <div class="flex items-baseline gap-1 text-2xl font-bold tabular-nums text-ink dark:text-white">
+                    <span id="sim-before-val">75.0</span>
+                    <span class="text-xs font-normal text-mute">%</span>
+                  </div>
+                  <span id="sim-before-sub" class="text-[10px] text-mute font-mono block">15 of 20 classes</span>
+                </div>
+                <div class="space-y-1">
+                  <span class="text-[10px] text-mute dark:text-gray-500 uppercase font-mono block" data-i18n="simulator.simulatedPct">Simulated Percentage</span>
+                  <div class="flex items-baseline gap-1 text-2xl font-bold tabular-nums text-ink dark:text-white">
+                    <span id="sim-after-val">80.0</span>
+                    <span class="text-xs font-normal text-mute">%</span>
+                  </div>
+                  <span id="sim-after-sub" class="text-[10px] text-mute font-mono block">20 of 25 classes</span>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-3 pt-2 border-t border-hairline dark:border-[#222]">
+                <div id="sim-delta-indicator" class="inline-flex items-center gap-1.5 text-xs font-semibold">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M10 17a.75.75 0 0 1-.75-.75V5.612L5.29 9.77a.75.75 0 0 1-1.08-1.04l5.25-5.25a.75.75 0 0 1 1.08 0l5.25 5.25a.75.75 0 1 1-1.08 1.04l-3.96-3.908V16.25A.75.75 0 0 1 10 17Z" clip-rule="evenodd" />
+                  </svg>
+                  <span id="sim-delta-text">+5.0% increase</span>
+                </div>
+                <div id="sim-standing-badge" class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium border uppercase tracking-wider">Above Target</div>
+              </div>
+
+              <p id="sim-conclusion" class="text-xs leading-relaxed text-body dark:text-gray-400 bg-canvas dark:bg-[#111] p-3 rounded border border-hairline dark:border-[#222]">
+                Attending 5 more classes consecutively increases your attendance to 80.0%, putting you safely above the 75% target threshold.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-hairline dark:border-[#222] bg-canvas dark:bg-[#0a0a0a] py-12 mt-12">
+    <div class="max-w-5xl mx-auto px-4 md:px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="col-span-2 md:col-span-1">
+          <a href="/" class="flex items-center gap-2 font-sans font-semibold tracking-tight text-ink dark:text-white text-base mb-3">
+            <img src="/favicon.svg" class="w-5 h-5" alt="Attendoo" />
+            <span>Attendoo</span>
+          </a>
+          <p class="text-xs text-body dark:text-gray-400 leading-relaxed" data-i18n="footer.tagline">Free online attendance calculator and tracker for students. Calculate 75% attendance, track multiple subjects, and optimize your class attendance.</p>
+        </div>
+        <div>
+          <h4 class="text-[10px] font-mono text-mute dark:text-gray-500 uppercase tracking-wider mb-3" data-i18n="footer.tools">Tools</h4>
+          <ul class="space-y-2">
+            <li><a href="/calculator" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.calc">Calculator</a></li>
+            <li><a href="/subjects" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.courses">Courses</a></li>
+            <li><a href="/simulator" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.simulator">Simulator</a></li>
+            <li><a href="/analytics" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.analytics">Analytics</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-[10px] font-mono text-mute dark:text-gray-500 uppercase tracking-wider mb-3" data-i18n="footer.quickLinks">Quick Links</h4>
+          <ul class="space-y-2">
+            <li><a href="/settings" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.settings">Settings</a></li>
+            <li><a href="/calculator" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.75calc">75% Calculator</a></li>
+            <li><a href="/simulator" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.bunkCalc">Bunk Calculator</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-[10px] font-mono text-mute dark:text-gray-500 uppercase tracking-wider mb-3" data-i18n="footer.about">About</h4>
+          <p class="text-xs text-body dark:text-gray-400 leading-relaxed" data-i18n="footer.aboutDesc">Attendoo helps students track and optimize their academic attendance with free, privacy-first tools.</p>
+        </div>
+      </div>
+      <div class="mt-10 pt-6 border-t border-hairline dark:border-[#222] flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-[10px] text-mute dark:text-gray-500">&copy; 2026 Attendoo. <span data-i18n="footer.rights">All rights reserved.</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <div id="aria-announcer" class="sr-only" aria-live="polite"></div>
+</Layout>
+
+<script>
+  import { applyTranslations, setLanguage, getCurrentLang, t, tt, supportedLanguages } from '../lib/i18n';
+  import { loadSubjects } from '../lib/store';
+
+  const simSelect = document.getElementById('sim-subject-select') as HTMLSelectElement;
+  const simCustom = document.getElementById('sim-custom-inputs') as HTMLDivElement;
+  const simPresent = document.getElementById('sim-custom-present') as HTMLInputElement;
+  const simTotal = document.getElementById('sim-custom-total') as HTMLInputElement;
+  const simTarget = document.getElementById('sim-custom-target') as HTMLInputElement;
+  const simSlider = document.getElementById('sim-class-count') as HTMLInputElement;
+  const simLabel = document.getElementById('sim-class-count-label') as HTMLSpanElement;
+  const simBefore = document.getElementById('sim-before-val') as HTMLSpanElement;
+  const simBeforeSub = document.getElementById('sim-before-sub') as HTMLSpanElement;
+  const simAfter = document.getElementById('sim-after-val') as HTMLSpanElement;
+  const simAfterSub = document.getElementById('sim-after-sub') as HTMLSpanElement;
+  const simDelta = document.getElementById('sim-delta-indicator') as HTMLDivElement;
+  const simDeltaText = document.getElementById('sim-delta-text') as HTMLSpanElement;
+  const simBadge = document.getElementById('sim-standing-badge') as HTMLSpanElement;
+  const simConclusion = document.getElementById('sim-conclusion') as HTMLParagraphElement;
+  const aria = document.getElementById('aria-announcer') as HTMLDivElement;
+
+  function announce(m: string) { if (aria) aria.textContent = m; }
+
+  function syncOptions() {
+    const subjects = loadSubjects();
+    const prev = simSelect.value;
+    let html = '<option value="custom">-- Custom Calculations --</option>';
+    subjects.forEach(s => { html += `<option value="${s.id}">${s.name}</option>`; });
+    simSelect.innerHTML = html;
+    if (prev && simSelect.querySelector(`option[value="${prev}"]`)) simSelect.value = prev;
+    else simSelect.value = subjects.length > 0 ? subjects[0].id : 'custom';
+    toggleCustom();
+    runSim();
+  }
+
+  function toggleCustom() {
+    if (simSelect.value === 'custom') simCustom.classList.remove('hidden');
+    else simCustom.classList.add('hidden');
+  }
+
+  function runSim() {
+    let present = 0, total = 0, target = 75;
+    const val = simSelect.value;
+    if (val === 'custom') {
+      present = parseInt(simPresent.value, 10) || 0;
+      total = parseInt(simTotal.value, 10) || 0;
+      target = parseInt(simTarget.value, 10) || 75;
+    } else {
+      const subjects = loadSubjects();
+      const sub = subjects.find(s => s.id === val);
+      if (sub) { present = sub.present; total = sub.total; target = sub.target; }
+    }
+    const count = parseInt(simSlider.value, 10) || 0;
+    simLabel.textContent = count.toString();
+    const action = (document.querySelector('input[name="sim-action"]:checked') as HTMLInputElement)?.value;
+    const curPct = total > 0 ? (present / total) * 100 : 0;
+    let simP = present, simT = total + count;
+    if (action === 'attend') simP = present + count;
+    const simPct = simT > 0 ? (simP / simT) * 100 : 0;
+    const delta = simPct - curPct;
+
+    simBefore.textContent = curPct.toFixed(1);
+    simBeforeSub.textContent = `${present} of ${total} classes`;
+    simAfter.textContent = simPct.toFixed(1);
+    simAfterSub.textContent = `${simP} of ${simT} classes`;
+
+    if (delta >= 0) {
+      simDelta.className = 'inline-flex items-center gap-1.5 text-xs font-semibold text-success';
+      simDelta.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4" aria-hidden="true"><path fill-rule="evenodd" d="M10 17a.75.75 0 0 1-.75-.75V5.612L5.29 9.77a.75.75 0 0 1-1.08-1.04l5.25-5.25a.75.75 0 0 1 1.08 0l5.25 5.25a.75.75 0 1 1-1.08 1.04l-3.96-3.908V16.25A.75.75 0 0 1 10 17Z" clip-rule="evenodd" /></svg><span>${tt('simulator.increaseMsg', { delta: delta.toFixed(1) })}</span>`;
+    } else {
+      simDelta.className = 'inline-flex items-center gap-1.5 text-xs font-semibold text-error';
+      simDelta.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4" aria-hidden="true"><path fill-rule="evenodd" d="M10 3a.75.75 0 0 1 .75.75v10.638l3.96-3.908a.75.75 0 1 1 1.08 1.04l-5.25 5.25a.75.75 0 0 1-1.08 0l-5.25-5.25a.75.75 0 1 1 1.08-1.04l3.96 3.908V3.75A.75.75 0 0 1 10 3Z" clip-rule="evenodd" /></svg><span>${tt('simulator.decreaseMsg', { delta: delta.toFixed(1) })}</span>`;
+    }
+
+    if (simPct >= target) {
+      simBadge.textContent = t('simulator.aboveTarget');
+      simBadge.className = 'inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium border border-blue-500/20 bg-blue-500/5 text-success uppercase tracking-wider';
+    } else {
+      simBadge.textContent = t('simulator.belowTarget');
+      simBadge.className = 'inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium border border-warning/20 bg-warning/5 text-warning uppercase tracking-wider';
+    }
+
+    const statusKey = simPct >= target ? 'simulator.safelyAbove' : 'simulator.stillBelow';
+    const statusText = t(statusKey);
+    const es = count > 1 ? 'es' : '';
+    simConclusion.textContent = action === 'attend'
+      ? tt('simulator.conclusionAttend', { n: count, es, pct: simPct.toFixed(1), status: statusText, target: target.toString() })
+      : tt('simulator.conclusionBunk', { n: count, es, pct: simPct.toFixed(1), status: statusText, target: target.toString() });
+  }
+
+  simSelect?.addEventListener('change', () => { toggleCustom(); runSim(); });
+  simPresent?.addEventListener('input', runSim);
+  simTotal?.addEventListener('input', runSim);
+  simTarget?.addEventListener('input', runSim);
+  simSlider?.addEventListener('input', runSim);
+  document.querySelectorAll('input[name="sim-action"]').forEach(el => el.addEventListener('change', runSim));
+
+  // Theme
+  document.getElementById('theme-toggler')?.addEventListener('click', () => {
+    document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+  });
+
+  // Mobile
+  const mt = document.getElementById('mobile-menu-trigger');
+  const mm = document.getElementById('mobile-menu');
+  mt?.addEventListener('click', () => { mm.classList.toggle('hidden'); mt.setAttribute('aria-expanded', (!mm.classList.contains('hidden')).toString()); });
+  document.querySelectorAll('.mobile-nav-link').forEach(l => l.addEventListener('click', () => { mm.classList.add('hidden'); mt.setAttribute('aria-expanded', 'false'); }));
+
+  // Lang
+  const lt = document.getElementById('lang-trigger');
+  const lm = document.getElementById('lang-menu');
+  lt?.addEventListener('click', () => lm.classList.toggle('hidden'));
+  document.addEventListener('click', (e) => { if (!e.target.closest('.lang-dropdown')) lm?.classList.add('hidden'); });
+
+  function populateLanguageMenus() {
+    const currentLang = getCurrentLang();
+    if (lm) {
+      lm.innerHTML = supportedLanguages.map(l =>
+        `<button data-lang="${l.code}" class="${l.code === currentLang ? 'active' : ''}">${l.name}</button>`
+      ).join('');
+      lm.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { const l = b.getAttribute('data-lang'); if (l) setLanguage(l); }));
+    }
+  }
+  populateLanguageMenus();
+
+  syncOptions();
+  applyTranslations();
+</script>

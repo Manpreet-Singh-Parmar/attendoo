@@ -1,0 +1,518 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Attendance Calculator — Track & Optimize Your Class Attendance | Attendoo">
+  <!-- Navigation bar -->
+  <header class="sticky top-0 z-40 w-full border-b border-hairline dark:border-[#222] bg-canvas/80 dark:bg-black/80 backdrop-blur-md transition-colors duration-150">
+    <div class="max-w-5xl mx-auto px-4 md:px-6 w-full flex items-center justify-between h-14">
+      <a href="/" class="flex items-center gap-2 font-sans font-semibold tracking-tight text-ink dark:text-white text-base focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none rounded-sm px-1 py-0.5">
+        <img src="/favicon.svg" class="w-5 h-5" alt="Attendoo" />
+        <div class="flex flex-col">
+          <span>Attendoo</span>
+          <span class="text-xs text-body/50 dark:text-gray-500/50 font-normal leading-none">attendance calculator</span>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="/calculator" class="text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-2.5 py-1.5 rounded-full transition-all focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none" data-i18n="nav.calculator">Calculator</a>
+        <a href="/subjects" class="text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-2.5 py-1.5 rounded-full transition-all focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none" data-i18n="nav.tracker">Courses</a>
+        <a href="/simulator" class="text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-2.5 py-1.5 rounded-full transition-all focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none" data-i18n="nav.simulator">Simulator</a>
+        <a href="/analytics" class="text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-2.5 py-1.5 rounded-full transition-all focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none" data-i18n="nav.analytics">Analytics</a>
+      </nav>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <div class="lang-dropdown relative">
+          <button id="lang-trigger" class="w-8 h-8 rounded-sm bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] hover:bg-canvas-soft-2 dark:hover:bg-[#1a1a1a] text-ink dark:text-white flex items-center justify-center cursor-pointer transition-all focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none" aria-label="Switch language" title="Switch language">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m10.5 21 5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 0 1-3.827-5.802" />
+            </svg>
+          </button>
+          <div id="lang-menu" class="lang-dropdown-menu hidden"></div>
+        </div>
+
+        <button id="theme-toggler" class="relative w-8 h-8 rounded-sm bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] hover:bg-canvas-soft-2 dark:hover:bg-[#1a1a1a] text-ink dark:text-white flex items-center justify-center cursor-pointer transition-all focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none" aria-label="Toggle light/dark theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 block dark:hidden fill-none stroke-current stroke-2" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M16.24 16.24l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 hidden dark:block fill-none stroke-current stroke-2" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+          </svg>
+        </button>
+
+        <button id="mobile-menu-trigger" class="relative w-8 h-8 rounded-sm bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] hover:bg-canvas-soft-2 dark:hover:bg-[#1a1a1a] text-ink dark:text-white flex md:hidden items-center justify-center cursor-pointer transition-all focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="mobile-menu">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24" aria-hidden="true">
+            <path class="line-top transition-all duration-200 origin-center" d="M4 6h16" />
+            <path class="line-mid transition-all duration-200" d="M4 12h16" />
+            <path class="line-bot transition-all duration-200 origin-center" d="M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="hidden border-t border-hairline dark:border-[#222] bg-canvas dark:bg-black w-full overflow-hidden transition-all duration-200 ease-in-out md:hidden">
+      <div class="px-4 py-4 flex flex-col gap-2">
+        <a href="/calculator" class="mobile-nav-link text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-4 py-2.5 rounded transition-all" data-i18n="nav.calculator">Calculator</a>
+        <a href="/subjects" class="mobile-nav-link text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-4 py-2.5 rounded transition-all" data-i18n="nav.tracker">Courses</a>
+        <a href="/simulator" class="mobile-nav-link text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-4 py-2.5 rounded transition-all" data-i18n="nav.simulator">Simulator</a>
+        <a href="/analytics" class="mobile-nav-link text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-4 py-2.5 rounded transition-all" data-i18n="nav.analytics">Analytics</a>
+        <div class="h-[1px] bg-hairline dark:bg-[#222] my-2"></div>
+        <div class="flex flex-col gap-1 px-4 py-2">
+          <span class="text-[10px] font-mono text-mute dark:text-gray-500 uppercase tracking-wider" data-i18n="nav.language">Language</span>
+          <div id="lang-mobile-container" class="flex flex-col gap-1 mt-1 max-h-48 overflow-y-auto"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" class="flex-grow w-full focus:outline-none">
+    <!-- Hero band with Mesh Gradient -->
+    <section class="relative overflow-hidden border-b border-hairline dark:border-[#222] py-20 md:py-28 mesh-gradient-bg">
+      <div class="max-w-5xl mx-auto px-4 md:px-6 relative z-10">
+        <span class="inline-block font-mono text-[11px] text-mute dark:text-gray-500 uppercase tracking-widest mb-4" data-i18n="hero.category">
+          [ academic percentage optimizer ]
+        </span>
+
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tighter text-ink dark:text-white leading-none text-wrap-balance mb-6" data-i18n="hero.heading">
+          Calculate and track your attendance. Period.
+        </h1>
+
+        <p class="text-base md:text-lg text-body dark:text-gray-400 max-w-2xl leading-relaxed mb-8 text-wrap-pretty" data-i18n="hero.description">
+          Find the exact number of classes you need to attend consecutively to secure 75% attendance or see how many classes you can safely miss. Track multiple subjects with offline storage.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-3">
+          <a href="/subjects" class="bg-primary dark:bg-white text-on-primary dark:text-primary font-medium px-5 py-2.5 rounded-pill shadow-level2 hover:bg-black/90 dark:hover:bg-white/90 text-sm inline-flex items-center gap-2 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none transition-all" data-i18n="hero.cta.start">
+            Start Tracking
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3.5 h-3.5" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+            </svg>
+          </a>
+          <a href="/calculator" class="bg-canvas dark:bg-[#111] text-ink dark:text-white border border-hairline dark:border-[#222] font-medium px-5 py-2.5 rounded-pill shadow-level1 hover:bg-canvas-soft-2 dark:hover:bg-[#1a1a1a] text-sm inline-flex items-center gap-2 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none transition-all" data-i18n="hero.cta.calculate">
+            Quick Calculate
+          </a>
+        </div>
+      </div>
+      <div class="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-hairline dark:via-[#333] to-transparent"></div>
+    </section>
+
+    <!-- Quick one-liner calculator (essential part only) -->
+    <div class="max-w-5xl mx-auto px-4 md:px-6 py-12">
+      <section class="space-y-6">
+        <div class="flex items-baseline justify-between border-b border-hairline dark:border-[#222] pb-3">
+          <h2 class="text-xl font-semibold tracking-tight text-ink dark:text-white" data-i18n="calculator.title">
+            Instant calculator.
+          </h2>
+        </div>
+
+        <div class="bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] rounded-md p-5 space-y-4 shadow-level2 transition-all">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-primary dark:bg-white text-on-primary dark:text-primary tracking-wide" data-i18n="calculator.quickMode">75% QUICK MODE</span>
+              <span class="text-xs font-sans font-medium text-body dark:text-gray-400" data-i18n="calculator.oneLinerLabel">One-liner interactive calculator</span>
+            </div>
+            <span class="text-[10px] font-mono text-mute dark:text-gray-500" data-i18n="calculator.format">FORMAT: ATTENDED/TOTAL</span>
+          </div>
+          <div class="relative">
+            <input type="text" id="quick-one-liner-input" data-i18n-placeholder="calculator.placeholder" placeholder="Type attendance, e.g., 13/20 or 15 out of 20..." autocomplete="off" class="w-full bg-canvas-soft-2 dark:bg-[#151515] text-ink dark:text-white border border-hairline dark:border-[#333] rounded-sm h-11 px-3.5 text-sm font-mono placeholder:font-sans focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none transition-all placeholder:text-mute dark:placeholder:text-gray-600" />
+          </div>
+          <div id="quick-one-liner-result-container" class="hidden animate-slide-in p-3.5 rounded border border-hairline dark:border-[#222] bg-canvas-soft dark:bg-[#141414] transition-colors duration-150">
+            <p id="quick-one-liner-result" class="text-xs leading-relaxed text-body dark:text-gray-300 font-medium"></p>
+          </div>
+          <div class="flex justify-end">
+            <a href="/calculator" class="text-xs font-medium text-link dark:text-blue-400 hover:underline focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none">
+              Full calculator with all parameters →
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- SEO Content Section -->
+  <section class="border-t border-hairline dark:border-[#222] py-16 md:py-20 bg-canvas dark:bg-[#0a0a0a]">
+    <div class="max-w-5xl mx-auto px-4 md:px-6">
+      <div class="prose prose-sm max-w-none text-body dark:text-gray-400 space-y-4 leading-relaxed">
+        <h2 class="text-xl font-semibold tracking-tight text-ink dark:text-white text-2xl mb-6">Free Online Attendance Calculator for Students</h2>
+
+        <p>Our <strong>attendance calculator</strong> is a free online tool designed for college and school students who need to track their class attendance and maintain the required minimum attendance percentage. Whether you are aiming for 75% attendance or need to figure out how many classes you must attend consecutively, this <strong>college attendance calculator</strong> gives you instant results with no sign-up required.</p>
+
+        <p>Most universities and colleges in India and abroad mandate a minimum attendance threshold — typically 75% — to appear for semester exams. Falling short can result in being barred from exams. Our <strong>75 attendance calculator</strong> helps you stay on top of this requirement by computing exactly how many classes you need to attend or how many you can safely skip.</p>
+
+        <h3 class="text-lg font-semibold tracking-tight text-ink dark:text-white mt-8 mb-3">How the Attendance Calculator Works</h3>
+
+        <p>Using this <strong>attendance calculator online</strong> is straightforward. Simply enter the number of classes you have attended and the total number of classes conducted so far. The tool instantly computes your current attendance percentage and tells you whether you are above or below your target (default: 75%). If you are below the threshold, it shows the exact number of consecutive classes you must attend to reach the target. If you are above, it tells you how many classes you can safely bunk without dropping below the minimum.</p>
+
+        <p>For example, if you have attended 13 out of 20 classes, your current attendance is 65%. The <strong>75 percentage attendance calculator</strong> will tell you that you need to attend the next 7 classes consecutively to reach 75%. This kind of precise calculation helps students plan their attendance strategy effectively.</p>
+
+        <h3 class="text-lg font-semibold tracking-tight text-ink dark:text-white mt-8 mb-3">Why Use a Dedicated Attendance Tracker?</h3>
+
+        <p>While you could manually compute your attendance percentage, a dedicated <strong>attendance tracker</strong> eliminates errors and saves time. Our tool supports multiple subjects, so you can track attendance across all your courses simultaneously. Each course card displays your current percentage, target, whether you are safe or at risk, and the exact number of classes you need to attend or can bunk. The <strong>monthly attendance calculator</strong> feature lets you add new attendance data as the semester progresses, keeping your records always up to date.</p>
+
+        <p>We also offer a <strong>bunk calculator</strong> mode that is especially useful for students who want to know exactly how many classes they can miss while staying above the required minimum. Instead of guessing, you get a precise number based on your current attendance data. This is one of the most popular features among college students who need to balance academics with other commitments.</p>
+
+        <h3 class="text-lg font-semibold tracking-tight text-ink dark:text-white mt-8 mb-3">Advanced Features: Simulator and Analytics</h3>
+
+        <p>The <strong>classes needed for 75 attendance</strong> calculation is just the beginning. Our attendance simulator lets you predict what your attendance will look like if you attend or miss a certain number of future classes. Select a course or enter custom values, choose whether you want to simulate attending or missing classes, and the simulator shows your projected percentage. This is perfect for planning ahead and making informed decisions about which classes to prioritize.</p>
+
+        <p>The analytics dashboard gives you a bird's-eye view of your overall academic attendance. It shows your aggregate attendance percentage across all subjects, a course health summary (how many subjects are safe vs. at risk), and a global standing verdict. This <strong>minimum attendance calculator</strong> approach ensures you never miss the warning signs until it is too late.</p>
+
+        <p>All your data is stored locally in your browser using localStorage — nothing is uploaded to any server. Your attendance records remain private and accessible only on your device. You can also export and import your data as a JSON backup file from the settings page.</p>
+
+        <h3 class="text-lg font-semibold tracking-tight text-ink dark:text-white mt-8 mb-3">Who Can Benefit from This Tool?</h3>
+
+        <p>Our <strong>attendance calculator online</strong> is suitable for:</p>
+        <ul class="list-disc pl-5 space-y-1 text-body dark:text-gray-400">
+          <li><strong>College students</strong> — Track semester-wise attendance across multiple subjects and ensure you meet the 75% eligibility criterion for exams.</li>
+          <li><strong>School students</strong> — Maintain regular attendance records and get early warnings if your attendance is dropping.</li>
+          <li><strong>Teachers and academic advisors</strong> — Help students understand their attendance requirements and plan improvement strategies.</li>
+          <li><strong>University administrators</strong> — Provide students with a self-service tool to monitor their own attendance compliance.</li>
+        </ul>
+
+        <p>The <strong>75 attendance calculator</strong> is optimized for the most common attendance threshold used by educational institutions. However, you can customize the target percentage from 60% to 95% in the calculator settings, making this tool flexible for any attendance policy.</p>
+
+        <p>Start using our free attendance calculator today and take control of your academic attendance. No registration, no downloads — just accurate, instant calculations right in your browser.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section with JSON-LD -->
+  <section class="border-t border-hairline dark:border-[#222] py-16 md:py-20 bg-canvas-soft dark:bg-[#0c0c0c]">
+    <div class="max-w-5xl mx-auto px-4 md:px-6">
+      <h2 class="text-xl font-semibold tracking-tight text-ink dark:text-white text-2xl mb-8" data-i18n="faq.title">Frequently Asked Questions</h2>
+
+      <div id="faq-container" class="space-y-3">
+        <div class="faq-item bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] rounded-md overflow-hidden">
+          <button class="faq-question w-full flex items-center justify-between p-5 text-sm font-semibold text-ink dark:text-white text-left cursor-pointer hover:bg-canvas-soft dark:hover:bg-[#1a1a1a] transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none" aria-expanded="false">
+            <span data-i18n="faq.q1">How is 75% attendance calculated?</span>
+            <svg class="faq-icon w-4 h-4 shrink-0 transition-transform duration-200 text-mute" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+          </button>
+          <div class="faq-answer hidden px-5 pb-5" data-i18n="faq.a1">
+            75% attendance is calculated using the formula: (Number of Classes Attended ÷ Total Number of Classes Conducted) × 100. For example, if you attended 15 out of 20 classes, your attendance percentage is (15/20) × 100 = 75%. Our attendance calculator does this instantly and also tells you how many more classes you need to attend to reach or maintain 75%.
+          </div>
+        </div>
+
+        <div class="faq-item bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] rounded-md overflow-hidden">
+          <button class="faq-question w-full flex items-center justify-between p-5 text-sm font-semibold text-ink dark:text-white text-left cursor-pointer hover:bg-canvas-soft dark:hover:bg-[#1a1a1a] transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none" aria-expanded="false">
+            <span data-i18n="faq.q2">How to get 80% attendance?</span>
+            <svg class="faq-icon w-4 h-4 shrink-0 transition-transform duration-200 text-mute" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+          </button>
+          <div class="faq-answer hidden px-5 pb-5" data-i18n="faq.a2">
+            To get 80% attendance, you need your attended classes to be at least 80% of the total conducted classes. Use our calculator by setting the target to 80% and entering your current attended and total classes. The tool will tell you exactly how many consecutive classes you need to attend to reach 80% attendance.
+          </div>
+        </div>
+
+        <div class="faq-item bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] rounded-md overflow-hidden">
+          <button class="faq-question w-full flex items-center justify-between p-5 text-sm font-semibold text-ink dark:text-white text-left cursor-pointer hover:bg-canvas-soft dark:hover:bg-[#1a1a1a] transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none" aria-expanded="false">
+            <span data-i18n="faq.q3">75 percent attendance calculator how many days?</span>
+            <svg class="faq-icon w-4 h-4 shrink-0 transition-transform duration-200 text-mute" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+          </button>
+          <div class="faq-answer hidden px-5 pb-5" data-i18n="faq.a3">
+            Our 75 percent attendance calculator shows you the exact number of classes (not days) you need to attend consecutively to reach 75%. Since class schedules vary, the number of days depends on how many classes you have per day. For instance, if you need to attend 6 more classes and you have 3 classes per day, you need to attend all classes for 2 consecutive days.
+          </div>
+        </div>
+
+        <div class="faq-item bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] rounded-md overflow-hidden">
+          <button class="faq-question w-full flex items-center justify-between p-5 text-sm font-semibold text-ink dark:text-white text-left cursor-pointer hover:bg-canvas-soft dark:hover:bg-[#1a1a1a] transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none" aria-expanded="false">
+            <span data-i18n="faq.q4">How is attendance percentage calculated?</span>
+            <svg class="faq-icon w-4 h-4 shrink-0 transition-transform duration-200 text-mute" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+          </button>
+          <div class="faq-answer hidden px-5 pb-5" data-i18n="faq.a4">
+            Attendance percentage is calculated by dividing the number of classes you attended by the total number of classes conducted, then multiplying by 100. The formula is: Attendance % = (Attended Classes ÷ Total Classes) × 100. Our calculator does this instantly and also computes the additional classes needed or the classes you can safely bunk based on your target percentage.
+          </div>
+        </div>
+
+        <div class="faq-item bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] rounded-md overflow-hidden">
+          <button class="faq-question w-full flex items-center justify-between p-5 text-sm font-semibold text-ink dark:text-white text-left cursor-pointer hover:bg-canvas-soft dark:hover:bg-[#1a1a1a] transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none" aria-expanded="false">
+            <span data-i18n="faq.q5">How to use an attendance percentage calculator?</span>
+            <svg class="faq-icon w-4 h-4 shrink-0 transition-transform duration-200 text-mute" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+          </button>
+          <div class="faq-answer hidden px-5 pb-5" data-i18n="faq.a5">
+            Using our attendance percentage calculator is simple: enter the number of classes you have attended and the total number of classes conducted (format: attended/total, e.g., 13/20). The calculator instantly shows your current attendance percentage and provides actionable feedback on how many classes you need to attend to reach your target or how many you can miss while staying above the minimum threshold.
+          </div>
+        </div>
+
+        <div class="faq-item bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] rounded-md overflow-hidden">
+          <button class="faq-question w-full flex items-center justify-between p-5 text-sm font-semibold text-ink dark:text-white text-left cursor-pointer hover:bg-canvas-soft dark:hover:bg-[#1a1a1a] transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none" aria-expanded="false">
+            <span data-i18n="faq.q6">Is this attendance calculator accurate?</span>
+            <svg class="faq-icon w-4 h-4 shrink-0 transition-transform duration-200 text-mute" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+          </button>
+          <div class="faq-answer hidden px-5 pb-5" data-i18n="faq.a6">
+            Yes, our attendance calculator is 100% accurate. It uses standard mathematical formulas to compute percentage and required classes. The calculations are performed instantly in your browser with no rounding errors. Simply ensure you enter correct values for classes attended and total classes conducted for accurate results.
+          </div>
+        </div>
+
+        <div class="faq-item bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] rounded-md overflow-hidden">
+          <button class="faq-question w-full flex items-center justify-between p-5 text-sm font-semibold text-ink dark:text-white text-left cursor-pointer hover:bg-canvas-soft dark:hover:bg-[#1a1a1a] transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none" aria-expanded="false">
+            <span data-i18n="faq.q7">Does this calculator work for schools and colleges?</span>
+            <svg class="faq-icon w-4 h-4 shrink-0 transition-transform duration-200 text-mute" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+          </button>
+          <div class="faq-answer hidden px-5 pb-5" data-i18n="faq.a7">
+            Absolutely. Our attendance calculator works for both schools and colleges. Whether you are a school student tracking attendance for promotion requirements or a college student ensuring you meet the minimum attendance for semester exams, the tool adapts to your needs. You can customize the target percentage from 60% to 95% to match your institution's policy.
+          </div>
+        </div>
+
+        <div class="faq-item bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] rounded-md overflow-hidden">
+          <button class="faq-question w-full flex items-center justify-between p-5 text-sm font-semibold text-ink dark:text-white text-left cursor-pointer hover:bg-canvas-soft dark:hover:bg-[#1a1a1a] transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none" aria-expanded="false">
+            <span data-i18n="faq.q8">How many classes can I bunk?</span>
+            <svg class="faq-icon w-4 h-4 shrink-0 transition-transform duration-200 text-mute" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+          </button>
+          <div class="faq-answer hidden px-5 pb-5" data-i18n="faq.a8">
+            The number of classes you can bunk (skip) depends on your current attendance percentage and your target threshold. Our bunk calculator feature tells you exactly how many classes you can miss while staying above your target percentage. For example, if your attendance is 85% and your target is 75%, the calculator will show exactly how many consecutive classes you can safely bunk without dropping below 75%.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-hairline dark:border-[#222] bg-canvas dark:bg-[#0a0a0a] py-12">
+    <div class="max-w-5xl mx-auto px-4 md:px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="col-span-2 md:col-span-1">
+          <a href="/" class="flex items-center gap-2 font-sans font-semibold tracking-tight text-ink dark:text-white text-base mb-3">
+            <img src="/favicon.svg" class="w-5 h-5" alt="Attendoo" />
+            <span>Attendoo</span>
+          </a>
+          <p class="text-xs text-body dark:text-gray-400 leading-relaxed" data-i18n="footer.tagline">Free online attendance calculator and tracker for students. Calculate 75% attendance, track multiple subjects, and optimize your class attendance.</p>
+        </div>
+        <div>
+          <h4 class="text-[10px] font-mono text-mute dark:text-gray-500 uppercase tracking-wider mb-3" data-i18n="footer.tools">Tools</h4>
+          <ul class="space-y-2">
+            <li><a href="/calculator" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.calc">Calculator</a></li>
+            <li><a href="/subjects" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.courses">Courses</a></li>
+            <li><a href="/simulator" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.simulator">Simulator</a></li>
+            <li><a href="/analytics" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.analytics">Analytics</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-[10px] font-mono text-mute dark:text-gray-500 uppercase tracking-wider mb-3" data-i18n="footer.quickLinks">Quick Links</h4>
+          <ul class="space-y-2">
+            <li><a href="/settings" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.settings">Settings</a></li>
+            <li><a href="/calculator" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.75calc">75% Calculator</a></li>
+            <li><a href="/simulator" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.bunkCalc">Bunk Calculator</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-[10px] font-mono text-mute dark:text-gray-500 uppercase tracking-wider mb-3" data-i18n="footer.about">About</h4>
+          <ul class="space-y-2">
+            <li><span class="text-xs text-body dark:text-gray-400 leading-relaxed" data-i18n="footer.aboutDesc">Attendoo helps students track and optimize their academic attendance with free, privacy-first tools.</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-10 pt-6 border-t border-hairline dark:border-[#222] flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-[10px] text-mute dark:text-gray-500">&copy; 2026 Attendoo. <span data-i18n="footer.rights">All rights reserved.</span></p>
+        <p class="text-[10px] text-mute dark:text-gray-500" data-i18n="footer.freeCalc">Free Attendance Calculator for Students</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FAQ JSON-LD Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is 75% attendance calculated?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "75% attendance is calculated using the formula: (Number of Classes Attended / Total Number of Classes Conducted) x 100. For example, if you attended 15 out of 20 classes, your attendance percentage is (15/20) x 100 = 75%."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How to get 80% attendance?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "To get 80% attendance, you need your attended classes to be at least 80% of the total conducted classes. Use our calculator by setting the target to 80% and entering your current attended and total classes to get the exact number of classes you need to attend."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "75 percent attendance calculator how many days?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Our 75 percent attendance calculator shows the exact number of classes you need to attend consecutively to reach 75%. The number of days depends on your daily class schedule. If you need 6 more classes and have 3 classes per day, you need to attend all classes for 2 consecutive days."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is attendance percentage calculated?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Attendance percentage is calculated by dividing the number of classes attended by the total number of classes conducted, then multiplying by 100. Formula: Attendance % = (Attended Classes / Total Classes) x 100."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How to use an attendance percentage calculator?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Enter the number of classes attended and total classes conducted (e.g., 13/20). The calculator instantly shows your current percentage and tells you how many classes you need to attend to reach your target or how many you can miss while staying above the threshold."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this attendance calculator accurate?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our attendance calculator is 100% accurate. It uses standard mathematical formulas computed instantly in your browser with no rounding errors."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this calculator work for schools and colleges?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. Our attendance calculator works for both schools and colleges. You can customize the target percentage from 60% to 95% to match your institution's attendance policy."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How many classes can I bunk?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The number of classes you can bunk depends on your current attendance and target threshold. Our bunk calculator tells you exactly how many consecutive classes you can miss while staying above your target percentage."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <div id="aria-announcer" class="sr-only" aria-live="polite"></div>
+</Layout>
+
+<script>
+  import { applyTranslations, setLanguage, getCurrentLang, t, tt, supportedLanguages } from '../lib/i18n';
+
+  const themeToggler = document.getElementById('theme-toggler');
+  const mobileMenuTrigger = document.getElementById('mobile-menu-trigger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const langTrigger = document.getElementById('lang-trigger');
+  const langMenu = document.getElementById('lang-menu');
+  const ariaAnnouncer = document.getElementById('aria-announcer');
+
+  function announce(msg: string) {
+    if (ariaAnnouncer) ariaAnnouncer.textContent = msg;
+  }
+
+  // Theme toggle
+  themeToggler?.addEventListener('click', () => {
+    const isDark = document.documentElement.classList.contains('dark');
+    if (isDark) {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    } else {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    }
+  });
+
+  // Mobile menu
+  mobileMenuTrigger?.addEventListener('click', () => {
+    const isHidden = mobileMenu.classList.contains('hidden');
+    mobileMenu.classList.toggle('hidden');
+    mobileMenuTrigger.setAttribute('aria-expanded', (!isHidden).toString());
+  });
+  document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      mobileMenuTrigger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // FAQ Accordion
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', (!expanded).toString());
+      const answer = btn.nextElementSibling as HTMLElement;
+      const icon = btn.querySelector('.faq-icon') as HTMLElement;
+      if (expanded) {
+        answer.classList.add('hidden');
+        icon.style.transform = 'rotate(0deg)';
+      } else {
+        answer.classList.remove('hidden');
+        icon.style.transform = 'rotate(180deg)';
+      }
+    });
+  });
+
+  // Language switcher desktop
+  langTrigger?.addEventListener('click', () => {
+    langMenu.classList.toggle('hidden');
+  });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.lang-dropdown')) {
+      langMenu?.classList.add('hidden');
+    }
+  });
+
+  // Populate language menus dynamically
+  function populateLanguageMenus() {
+    const currentLang = getCurrentLang();
+    const containers = [
+      { el: document.getElementById('lang-menu'), cls: '' },
+      { el: document.getElementById('lang-mobile-container'), cls: 'text-xs px-3 py-1.5 rounded border border-hairline dark:border-[#333] text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] cursor-pointer' },
+    ];
+    containers.forEach(({ el, cls }) => {
+      if (!el) return;
+      el.innerHTML = supportedLanguages.map(l =>
+        `<button data-lang="${l.code}" class="${l.code === currentLang ? 'active ' : ''}${cls}">${l.name}</button>`
+      ).join('');
+      el.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const lang = btn.getAttribute('data-lang');
+          if (lang) setLanguage(lang);
+        });
+      });
+    });
+  }
+  populateLanguageMenus();
+
+  // One-liner calculator
+  const quickInput = document.getElementById('quick-one-liner-input') as HTMLInputElement;
+  const resultContainer = document.getElementById('quick-one-liner-result-container') as HTMLDivElement;
+  const resultText = document.getElementById('quick-one-liner-result') as HTMLParagraphElement;
+
+  quickInput?.addEventListener('input', () => {
+    const raw = quickInput.value.trim();
+    if (!raw) {
+      resultContainer.classList.add('hidden');
+      return;
+    }
+    const match = raw.match(/(\d+)\s*(?:\/|out\s+of|of)\s*(\d+)/i);
+    if (!match) {
+      resultContainer.classList.remove('hidden');
+      resultContainer.className = 'animate-slide-in p-3.5 rounded border border-hairline dark:border-[#222] bg-canvas-soft dark:bg-[#141414]';
+      resultText.innerHTML = t('calculator.invalidFormat');
+      return;
+    }
+    const present = parseInt(match[1], 10);
+    const total = parseInt(match[2], 10);
+    if (total === 0 || present > total) {
+      resultContainer.classList.remove('hidden');
+      resultContainer.className = 'animate-slide-in p-3.5 rounded border border-hairline dark:border-[#222] bg-canvas-soft dark:bg-[#141414]';
+      resultText.innerHTML = present > total ? t('calculator.attendedExceeds') : t('calculator.totalZero');
+      return;
+    }
+    const pct = total > 0 ? (present / total) * 100 : 0;
+    const target = 75;
+    const needed = pct < target ? Math.ceil((target/100 * total - present) / (1 - target/100)) : Math.floor((present - target/100 * total) / (target/100));
+    const status = pct >= target ? 'safe' : 'risk';
+    const statusColor = status === 'safe' ? 'text-success border-blue-500/20 bg-blue-500/5 dark:bg-blue-500/10' : 'text-warning border-warning/20 bg-warning/5 dark:bg-warning/10';
+    const msg = status === 'safe'
+      ? (needed > 0 ? tt('calculator.bunkMsg', { n: needed, es: needed > 1 ? 'es' : '' }) : t('calculator.limitMsg'))
+      : tt('calculator.attendMsg', { n: needed, es: needed > 1 ? 'es' : '' });
+
+    resultContainer.classList.remove('hidden');
+    resultContainer.className = `animate-slide-in p-3.5 rounded border ${statusColor}`;
+    resultText.innerHTML = `<strong class="text-ink dark:text-white">${pct.toFixed(1)}%</strong> &mdash; ${msg} <span class="block text-[10px] text-mute dark:text-gray-500 mt-0.5">${present}/${total} ${t('calculator.classes')}</span>`;
+  });
+
+  // Apply i18n
+  applyTranslations();
+</script>

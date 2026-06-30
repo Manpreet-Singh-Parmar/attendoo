@@ -1,0 +1,239 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Settings — Attendoo">
+  <header class="sticky top-0 z-40 w-full border-b border-hairline dark:border-[#222] bg-canvas/80 dark:bg-black/80 backdrop-blur-md transition-colors duration-150">
+    <div class="max-w-5xl mx-auto px-4 md:px-6 w-full flex items-center justify-between h-14">
+      <a href="/" class="flex items-center gap-2 font-sans font-semibold tracking-tight text-ink dark:text-white text-base focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none rounded-sm px-1 py-0.5">
+        <img src="/favicon.svg" class="w-5 h-5" alt="Attendoo" />
+        <div class="flex flex-col">
+          <span>Attendoo</span>
+          <span class="text-xs text-body/50 dark:text-gray-500/50 font-normal leading-none">attendance calculator</span>
+        </div>
+      </a>
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="/calculator" class="text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-2.5 py-1.5 rounded-full transition-all">Calculator</a>
+        <a href="/subjects" class="text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-2.5 py-1.5 rounded-full transition-all">Courses</a>
+        <a href="/simulator" class="text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-2.5 py-1.5 rounded-full transition-all">Simulator</a>
+        <a href="/analytics" class="text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-2.5 py-1.5 rounded-full transition-all">Analytics</a>
+      </nav>
+      <div class="flex items-center gap-2 sm:gap-3">
+        <div class="lang-dropdown relative">
+          <button id="lang-trigger" class="w-8 h-8 rounded-sm bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] hover:bg-canvas-soft-2 dark:hover:bg-[#1a1a1a] text-ink dark:text-white flex items-center justify-center cursor-pointer transition-all" aria-label="Switch language">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="m10.5 21 5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 0 1-3.827-5.802" /></svg>
+          </button>
+          <div id="lang-menu" class="lang-dropdown-menu hidden"></div>
+        </div>
+        <button id="theme-toggler" class="relative w-8 h-8 rounded-sm bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] hover:bg-canvas-soft-2 dark:hover:bg-[#1a1a1a] text-ink dark:text-white flex items-center justify-center cursor-pointer transition-all" aria-label="Toggle theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 block dark:hidden fill-none stroke-current stroke-2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M16.24 16.24l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" /></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 hidden dark:block fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" /></svg>
+        </button>
+        <button id="mobile-menu-trigger" class="relative w-8 h-8 rounded-sm bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] hover:bg-canvas-soft-2 dark:hover:bg-[#1a1a1a] text-ink dark:text-white flex md:hidden items-center justify-center cursor-pointer transition-all" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="mobile-menu">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path class="line-top transition-all duration-200 origin-center" d="M4 6h16" /><path class="line-mid transition-all duration-200" d="M4 12h16" /><path class="line-bot transition-all duration-200 origin-center" d="M4 18h16" /></svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden border-t border-hairline dark:border-[#222] bg-canvas dark:bg-black md:hidden">
+      <div class="px-4 py-4 flex flex-col gap-2">
+        <a href="/calculator" class="mobile-nav-link text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-4 py-2.5 rounded transition-all">Calculator</a>
+        <a href="/subjects" class="mobile-nav-link text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-4 py-2.5 rounded transition-all">Courses</a>
+        <a href="/simulator" class="mobile-nav-link text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-4 py-2.5 rounded transition-all">Simulator</a>
+        <a href="/analytics" class="mobile-nav-link text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-4 py-2.5 rounded transition-all">Analytics</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" class="flex-grow w-full focus:outline-none">
+    <div class="max-w-5xl mx-auto px-4 md:px-6 py-12">
+      <section id="settings" class="scroll-mt-20 bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] rounded-md shadow-level2 p-5 md:p-6 space-y-6">
+        <div class="border-b border-hairline dark:border-[#222] pb-3 flex items-center justify-between">
+          <h3 class="text-sm font-semibold tracking-tight uppercase font-mono text-ink dark:text-white" data-i18n="settings.title">Settings & Utilities</h3>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-mute dark:text-gray-600" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.43l-1.003.828c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.43l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="space-y-4">
+            <h4 class="text-xs font-semibold text-ink dark:text-white" data-i18n="settings.general">General settings</h4>
+            <div class="space-y-2">
+              <label for="global-target" class="block text-xs text-body dark:text-gray-400" data-i18n="settings.defaultTarget">Default Target Percentage (applies to new subjects)</label>
+              <select id="global-target" class="w-full max-w-[240px] bg-canvas dark:bg-[#151515] text-ink dark:text-white border border-hairline dark:border-[#333] rounded-sm h-10 px-3 text-sm focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none cursor-pointer transition-all">
+                <option value="60">60%</option>
+                <option value="65">65%</option>
+                <option value="70">70%</option>
+                <option value="75" selected>75%</option>
+                <option value="80">80%</option>
+                <option value="85">85%</option>
+                <option value="90">90%</option>
+                <option value="95">95%</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <h4 class="text-xs font-semibold text-ink dark:text-white" data-i18n="settings.dataTools">Data tools</h4>
+            <div class="flex flex-wrap items-center gap-3">
+              <button id="export-btn" class="bg-canvas dark:bg-[#1c1c1c] text-ink dark:text-white border border-hairline dark:border-[#333] hover:bg-canvas-soft-2 dark:hover:bg-[#252525] font-semibold px-4 py-2 rounded-sm text-xs shadow-level1 flex items-center gap-1.5 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none cursor-pointer transition-all" data-i18n="settings.export">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
+                Export Backup
+              </button>
+              <label for="import-file" class="bg-canvas dark:bg-[#1c1c1c] text-ink dark:text-white border border-hairline dark:border-[#333] hover:bg-canvas-soft-2 dark:hover:bg-[#252525] font-semibold px-4 py-2 rounded-sm text-xs shadow-level1 flex items-center gap-1.5 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none cursor-pointer transition-all" data-i18n="settings.import">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" /></svg>
+                Import Backup
+              </label>
+              <input type="file" id="import-file" accept=".json" class="hidden" aria-label="Import Backup File" />
+              <button id="reset-btn" class="bg-canvas dark:bg-black text-error border border-error-soft hover:bg-error-soft/10 font-semibold px-4 py-2 rounded-sm text-xs flex items-center gap-1.5 focus-visible:ring-2 focus-visible:ring-error focus-visible:outline-none cursor-pointer transition-all" data-i18n="settings.clear">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5"><path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" /></svg>
+                Clear All Data
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-hairline dark:border-[#222] bg-canvas dark:bg-[#0a0a0a] py-12 mt-12">
+    <div class="max-w-5xl mx-auto px-4 md:px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="col-span-2 md:col-span-1">
+          <a href="/" class="flex items-center gap-2 font-sans font-semibold tracking-tight text-ink dark:text-white text-base mb-3">
+            <img src="/favicon.svg" class="w-5 h-5" alt="Attendoo" />
+            <span>Attendoo</span>
+          </a>
+          <p class="text-xs text-body dark:text-gray-400 leading-relaxed" data-i18n="footer.tagline">Free online attendance calculator and tracker for students. Calculate 75% attendance, track multiple subjects, and optimize your class attendance.</p>
+        </div>
+        <div>
+          <h4 class="text-[10px] font-mono text-mute dark:text-gray-500 uppercase tracking-wider mb-3" data-i18n="footer.tools">Tools</h4>
+          <ul class="space-y-2">
+            <li><a href="/calculator" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.calc">Calculator</a></li>
+            <li><a href="/subjects" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.courses">Courses</a></li>
+            <li><a href="/simulator" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.simulator">Simulator</a></li>
+            <li><a href="/analytics" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.analytics">Analytics</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-[10px] font-mono text-mute dark:text-gray-500 uppercase tracking-wider mb-3" data-i18n="footer.quickLinks">Quick Links</h4>
+          <ul class="space-y-2">
+            <li><a href="/settings" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.settings">Settings</a></li>
+            <li><a href="/calculator" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.75calc">75% Calculator</a></li>
+            <li><a href="/simulator" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.bunkCalc">Bunk Calculator</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-[10px] font-mono text-mute dark:text-gray-500 uppercase tracking-wider mb-3" data-i18n="footer.about">About</h4>
+          <p class="text-xs text-body dark:text-gray-400 leading-relaxed" data-i18n="footer.aboutDesc">Attendoo helps students track and optimize their academic attendance with free, privacy-first tools.</p>
+        </div>
+      </div>
+      <div class="mt-10 pt-6 border-t border-hairline dark:border-[#222] flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-[10px] text-mute dark:text-gray-500">&copy; 2026 Attendoo. <span data-i18n="footer.rights">All rights reserved.</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <div id="aria-announcer" class="sr-only" aria-live="polite"></div>
+</Layout>
+
+<script>
+  import { applyTranslations, setLanguage, getCurrentLang, t, tt, supportedLanguages } from '../lib/i18n';
+  import { loadSubjects, saveSubjects, loadDefaultTarget, saveDefaultTarget } from '../lib/store';
+
+  const targetSelect = document.getElementById('global-target') as HTMLSelectElement;
+  const exportBtn = document.getElementById('export-btn') as HTMLButtonElement;
+  const importInput = document.getElementById('import-file') as HTMLInputElement;
+  const resetBtn = document.getElementById('reset-btn') as HTMLButtonElement;
+  const aria = document.getElementById('aria-announcer') as HTMLDivElement;
+
+  function announce(m: string) { if (aria) aria.textContent = m; }
+
+  // Load saved default target
+  const savedTarget = loadDefaultTarget();
+  targetSelect.value = savedTarget.toString();
+
+  targetSelect?.addEventListener('change', () => {
+    const val = parseInt(targetSelect.value, 10) || 75;
+    saveDefaultTarget(val);
+    announce(tt('announcer.targetChanged', { val }));
+  });
+
+  exportBtn?.addEventListener('click', () => {
+    const subjects = loadSubjects();
+    const data = { subjects, defaultTarget: loadDefaultTarget(), exportedAt: new Date().toISOString(), version: '1.0.0' };
+    const json = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(data, null, 2))}`;
+    const a = document.createElement('a');
+    a.setAttribute('href', json);
+    a.setAttribute('download', `attendoo_backup_${new Date().toISOString().slice(0, 10)}.json`);
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    announce(t('announcer.backupExported'));
+  });
+
+  importInput?.addEventListener('change', (e) => {
+    const file = (e.target as HTMLInputElement).files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (evt) => {
+      try {
+        const content = evt.target?.result as string;
+        const imported = JSON.parse(content);
+        if (Array.isArray(imported.subjects)) {
+          saveSubjects(imported.subjects);
+          if (typeof imported.defaultTarget === 'number') {
+            saveDefaultTarget(imported.defaultTarget);
+            targetSelect.value = imported.defaultTarget.toString();
+          }
+          alert('Backup imported successfully!');
+          announce(t('announcer.backupImported'));
+        } else {
+          alert('Invalid backup structure.');
+        }
+      } catch { alert('Error reading backup file.'); }
+    };
+    reader.readAsText(file);
+    (e.target as HTMLInputElement).value = '';
+  });
+
+  resetBtn?.addEventListener('click', () => {
+    if (!confirm(t('confirm.clearData'))) return;
+    saveSubjects([]);
+    saveDefaultTarget(75);
+    targetSelect.value = '75';
+    announce(t('announcer.dataCleared'));
+  });
+
+  // Theme
+  document.getElementById('theme-toggler')?.addEventListener('click', () => {
+    document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+  });
+
+  // Mobile
+  const mt = document.getElementById('mobile-menu-trigger');
+  const mm = document.getElementById('mobile-menu');
+  mt?.addEventListener('click', () => { mm.classList.toggle('hidden'); mt.setAttribute('aria-expanded', (!mm.classList.contains('hidden')).toString()); });
+  document.querySelectorAll('.mobile-nav-link').forEach(l => l.addEventListener('click', () => { mm.classList.add('hidden'); mt.setAttribute('aria-expanded', 'false'); }));
+
+  // Lang
+  const lt = document.getElementById('lang-trigger');
+  const lm = document.getElementById('lang-menu');
+  lt?.addEventListener('click', () => lm.classList.toggle('hidden'));
+  document.addEventListener('click', (e) => { if (!e.target.closest('.lang-dropdown')) lm?.classList.add('hidden'); });
+
+  function populateLanguageMenus() {
+    const currentLang = getCurrentLang();
+    if (lm) {
+      lm.innerHTML = supportedLanguages.map(l =>
+        `<button data-lang="${l.code}" class="${l.code === currentLang ? 'active' : ''}">${l.name}</button>`
+      ).join('');
+      lm.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { const l = b.getAttribute('data-lang'); if (l) setLanguage(l); }));
+    }
+  }
+  populateLanguageMenus();
+
+  applyTranslations();
+</script>
