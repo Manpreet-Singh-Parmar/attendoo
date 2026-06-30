@@ -8,7 +8,7 @@ interface Props {
 }
 
 const {
-  title = "Attendance Calculator — Track & Optimize Your Class Attendance | Attendoo",
+  title = "Attendance Calculator — Track & Optimize Your Class Attendance | Attendo",
   description = "Free online attendance calculator for students. Calculate 75% attendance, track classes, find how many classes you can bunk, and optimize your attendance percentage.",
   ogImage = "/favicon-96x96.png"
 } = Astro.props;
@@ -25,7 +25,7 @@ const {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="Attendoo" />
+    <meta name="apple-mobile-web-app-title" content="Attendo" />
     <link rel="manifest" href="/site.webmanifest" />
 
     <meta name="generator" content={Astro.generator} />
@@ -33,20 +33,20 @@ const {
     <!-- SEO Meta Tags -->
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="author" content="Attendoo" />
+    <meta name="author" content="Attendo" />
     <meta name="keywords" content="attendance calculator, attendance tracker, class attendance calculator, attendance percentage calculator, student attendance tool" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://attendoo.com/" />
+    <meta property="og:url" content="https://Attendo.com/" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:site_name" content="Attendoo" />
+    <meta property="og:site_name" content="Attendo" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://attendoo.com/" />
+    <meta property="twitter:url" content="https://Attendo.com/" />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={ogImage} />
@@ -74,6 +74,15 @@ const {
         }
         localStorage.setItem('theme', theme);
       })();
+    </script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-93TSMGE874"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-93TSMGE874');
     </script>
   </head>
   <body class="bg-canvas-soft dark:bg-[#0a0a0a] text-ink dark:text-[#d4d4d4] font-sans antialiased selection:bg-primary dark:selection:bg-white dark:selection:text-primary min-h-screen flex flex-col transition-colors duration-150">

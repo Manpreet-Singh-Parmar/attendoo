@@ -131,7 +131,7 @@ export const translations: Record<string, Record<string, string>> = {
     'footer.tools': 'Tools',
     'footer.quickLinks': 'Quick Links',
     'footer.about': 'About',
-    'footer.aboutDesc': 'Attendoo helps students track and optimize their academic attendance with free, privacy-first tools.',
+    'footer.aboutDesc': 'Attendo helps students track and optimize their academic attendance with free, privacy-first tools.',
     'footer.calc': 'Calculator',
     'footer.courses': 'Courses',
     'footer.simulator': 'Simulator',
@@ -312,7 +312,7 @@ export const translations: Record<string, Record<string, string>> = {
     'footer.tools': 'उपकरण',
     'footer.quickLinks': 'त्वरित लिंक',
     'footer.about': 'हमारे बारे में',
-    'footer.aboutDesc': 'Attendoo छात्रों को मुफ्त, गोपनीयता-प्रथम उपकरणों के साथ उनकी उपस्थिति ट्रैक करने में मदद करता है।',
+    'footer.aboutDesc': 'Attendo छात्रों को मुफ्त, गोपनीयता-प्रथम उपकरणों के साथ उनकी उपस्थिति ट्रैक करने में मदद करता है।',
     'footer.calc': 'कैलकुलेटर',
     'footer.courses': 'कोर्सेज',
     'footer.simulator': 'सिम्युलेटर',
@@ -491,7 +491,7 @@ export const translations: Record<string, Record<string, string>> = {
     'footer.tools': 'Outils',
     'footer.quickLinks': 'Liens rapides',
     'footer.about': 'À propos',
-    'footer.aboutDesc': 'Attendoo aide les étudiants à suivre et optimiser leur assiduité académique avec des outils gratuits et respectueux de la vie privée.',
+    'footer.aboutDesc': 'Attendo aide les étudiants à suivre et optimiser leur assiduité académique avec des outils gratuits et respectueux de la vie privée.',
     'footer.calc': 'Calculatrice',
     'footer.courses': 'Cours',
     'footer.simulator': 'Simulateur',
@@ -672,7 +672,7 @@ export const translations: Record<string, Record<string, string>> = {
     'footer.tools': 'Herramientas',
     'footer.quickLinks': 'Enlaces rápidos',
     'footer.about': 'Acerca de',
-    'footer.aboutDesc': 'Attendoo ayuda a los estudiantes a seguir y optimizar su asistencia académica con herramientas gratuitas y privadas.',
+    'footer.aboutDesc': 'Attendo ayuda a los estudiantes a seguir y optimizar su asistencia académica con herramientas gratuitas y privadas.',
     'footer.calc': 'Calculadora',
     'footer.courses': 'Cursos',
     'footer.simulator': 'Simulador',
@@ -734,7 +734,7 @@ export const translations: Record<string, Record<string, string>> = {
 
 export function getCurrentLang(): Lang {
   if (typeof localStorage !== 'undefined') {
-    const stored = localStorage.getItem('attendoo_lang') as Lang | null;
+    const stored = localStorage.getItem('Attendo_lang') as Lang | null;
     if (stored && supportedLanguages.some(l => l.code === stored)) return stored;
   }
   return 'en';
@@ -757,7 +757,7 @@ export function tt(key: string, params?: Record<string, string | number>): strin
 }
 
 export function setLanguage(lang: Lang): void {
-  localStorage.setItem('attendoo_lang', lang);
+  localStorage.setItem('Attendo_lang', lang);
   window.location.reload();
 }
 

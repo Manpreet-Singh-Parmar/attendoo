@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://attendoo.com/</loc>
+    <loc>https://Attendo.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://attendoo.com/about</loc>
+    <loc>https://Attendo.com/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://attendoo.com/analytics</loc>
+    <loc>https://Attendo.com/analytics</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://attendoo.com/calculator</loc>
+    <loc>https://Attendo.com/calculator</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://attendoo.com/contact</loc>
+    <loc>https://Attendo.com/contact</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://attendoo.com/privacy</loc>
+    <loc>https://Attendo.com/privacy</loc>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://attendoo.com/settings</loc>
+    <loc>https://Attendo.com/settings</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://attendoo.com/simulator</loc>
+    <loc>https://Attendo.com/simulator</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://attendoo.com/subjects</loc>
+    <loc>https://Attendo.com/subjects</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://attendoo.com/terms</loc>
+    <loc>https://Attendo.com/terms</loc>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>

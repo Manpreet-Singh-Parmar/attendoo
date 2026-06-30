@@ -20,7 +20,7 @@ export interface Feedback {
 }
 
 export function loadSubjects(): Subject[] {
-  const stored = localStorage.getItem('attendoo_subjects');
+  const stored = localStorage.getItem('Attendo_subjects');
   if (stored) {
     try { return JSON.parse(stored); } catch { return []; }
   }
@@ -28,16 +28,16 @@ export function loadSubjects(): Subject[] {
 }
 
 export function saveSubjects(subjects: Subject[]): void {
-  localStorage.setItem('attendoo_subjects', JSON.stringify(subjects));
+  localStorage.setItem('Attendo_subjects', JSON.stringify(subjects));
 }
 
 export function loadDefaultTarget(): number {
-  const stored = localStorage.getItem('attendoo_global_target');
+  const stored = localStorage.getItem('Attendo_global_target');
   return stored ? parseInt(stored, 10) : 75;
 }
 
 export function saveDefaultTarget(target: number): void {
-  localStorage.setItem('attendoo_global_target', target.toString());
+  localStorage.setItem('Attendo_global_target', target.toString());
 }
 
 export function computeFeedback(present: number, total: number, targetPercent: number): Feedback {
