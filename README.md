@@ -1,46 +1,48 @@
-# Astro Starter Kit: Basics
+# Attendoo
+
+**Free, privacy-first, offline-capable attendance tracker for students.**
+
+Monitor your class attendance percentage across multiple subjects, predict the impact of future attendance, and always know if you're above the minimum threshold to sit for exams — all without uploading a single byte of data.
+
+## Features
+
+- **Instant attendance calculator** — Input in natural format (`13/20`, `15 out of 20`) and get your percentage plus actionable advice.
+- **Multi-subject tracking** — Add any number of subjects with custom names, track attended/conducted classes, and set per-subject target percentages.
+- **Attendance simulator** — Predict what happens if you attend or skip a given number of future classes.
+- **Analytics dashboard** — Aggregate view of all subjects, course health (safe vs. at risk), and a global verdict.
+- **Bunk calculator** — Know exactly how many consecutive classes you can skip while staying above your target.
+- **Fully offline-first** — Everything runs client-side. All data stays in `localStorage`. No servers, no uploads.
+- **Dark mode** — Light/dark theme toggle with persistent preference.
+- **i18n** — Full UI translation for English, Hindi, French, and Spanish.
+- **Data management** — Export/import your attendance data as JSON backup.
+
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | [Astro](https://astro.build) (static site generation) |
+| Styling | [Tailwind CSS v4](https://tailwindcss.com) |
+| Hosting | [Cloudflare Workers](https://workers.cloudflare.com) |
+| TypeScript | Strict mode |
+| Fonts | Inter (sans) + JetBrains Mono (code) |
+
+## Getting Started
 
 ```sh
-npm create astro@latest -- --template basics
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Open [localhost:4321](http://localhost:4321) in your browser.
 
-## 🚀 Project Structure
+### Commands
 
-Inside of your Astro project, you'll see the following folders and files:
+| Command | Action |
+|---|---|
+| `npm run dev` | Start dev server at `localhost:4321` |
+| `npm run build` | Build production site to `./dist/` |
+| `npm run preview` | Preview production build locally |
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+## License
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+MIT
