@@ -14,6 +14,9 @@ const {
   ogImage = "/favicon-96x96.png",
   robots
 } = Astro.props;
+
+const isPagesDev = Astro.url.hostname.includes('pages.dev');
+const robotsDirective = robots ?? (isPagesDev ? 'noindex' : undefined);
 ---
 
 <!doctype html>
@@ -29,7 +32,7 @@ const {
 
 
     <meta name="generator" content={Astro.generator} />
-    {robots && <meta name="robots" content={robots} />}
+    {robotsDirective && <meta name="robots" content={robotsDirective} />}
 
     <link rel="canonical" href={`https://attendooo.com${Astro.url.pathname}`} />
 
