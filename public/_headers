@@ -1,2 +1,2 @@
-# _headers only applies to static assets, not Worker-served pages
-# noindex is handled via <meta name="robots"> in each page component
+https://attendoo.pages.dev/*
+  X-Robots-Tag: noindex
