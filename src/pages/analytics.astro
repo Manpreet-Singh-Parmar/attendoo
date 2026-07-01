@@ -250,7 +250,9 @@ import Layout from '../layouts/Layout.astro';
     }
     if (healthCircleRisk && total > 0) {
       const riskAngle = (data.riskCount / total) * 100;
+      const safeAngle = (data.safeCount / total) * 100;
       healthCircleRisk.setAttribute('stroke-dasharray', `${riskAngle} ${100 - riskAngle}`);
+      healthCircleRisk.setAttribute('stroke-dashoffset', `${-safeAngle}`);
     }
     if (healthCircleSafe && total === 0) healthCircleSafe.setAttribute('stroke-dasharray', '0 100');
     if (healthCircleRisk && total === 0) healthCircleRisk.setAttribute('stroke-dasharray', '0 100');

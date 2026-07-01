@@ -156,7 +156,7 @@ import Layout from '../layouts/Layout.astro';
             </div>
             <div class="space-y-1.5">
               <label for="sub-target" class="block text-[10px] font-medium text-body dark:text-gray-400" data-i18n="subjects.addModal.target">Target %</label>
-              <input type="number" id="sub-target" value="75" min="0" max="100" required class="w-full bg-canvas dark:bg-[#151515] text-ink dark:text-white border border-hairline dark:border-[#333] rounded-sm h-10 px-3 text-sm focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none transition-all" />
+              <input type="number" id="sub-target" value="" min="0" max="100" required class="w-full bg-canvas dark:bg-[#151515] text-ink dark:text-white border border-hairline dark:border-[#333] rounded-sm h-10 px-3 text-sm focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none transition-all" />
             </div>
           </div>
 
@@ -174,7 +174,7 @@ import Layout from '../layouts/Layout.astro';
 
 <script>
   import { applyTranslations, setLanguage, getCurrentLang, t, tt, supportedLanguages } from '../lib/i18n';
-  import { loadSubjects, saveSubjects, computeFeedback } from '../lib/store';
+  import { loadSubjects, saveSubjects, computeFeedback, loadDefaultTarget } from '../lib/store';
 
   interface Subject {
     id: string;
@@ -185,12 +185,6 @@ import Layout from '../layouts/Layout.astro';
   }
 
   let subjects: Subject[] = [];
-
-  const mockSubjects: Subject[] = [
-    { id: '1', name: 'Mathematics', present: 15, total: 20, target: 75 },
-    { id: '2', name: 'Physics', present: 11, total: 18, target: 75 },
-    { id: '3', name: 'Computer Science', present: 22, total: 24, target: 75 }
-  ];
 
   const container = document.getElementById('subjects-container') as HTMLDivElement;
   const emptyState = document.getElementById('subjects-empty-state') as HTMLDivElement;
@@ -204,13 +198,7 @@ import Layout from '../layouts/Layout.astro';
   function announce(msg: string) { if (aria) aria.textContent = msg; }
 
   function initStore() {
-    const stored = loadSubjects();
-    if (stored.length > 0) {
-      subjects = stored;
-    } else {
-      subjects = [...mockSubjects];
-      saveSubjects(subjects);
-    }
+    subjects = loadSubjects();
   }
 
   function syncUI() { renderTracker(); }
@@ -323,6 +311,7 @@ import Layout from '../layouts/Layout.astro';
 
   function openModal() {
     addModal.classList.remove('hidden');
+    (document.getElementById('sub-target') as HTMLInputElement).value = loadDefaultTarget().toString();
     (document.getElementById('sub-name') as HTMLInputElement).focus();
     announce(t('announcer.dialogOpened'));
   }
@@ -339,7 +328,7 @@ import Layout from '../layouts/Layout.astro';
     const name = (document.getElementById('sub-name') as HTMLInputElement).value.trim();
     const present = parseInt((document.getElementById('sub-present') as HTMLInputElement).value, 10) || 0;
     const total = parseInt((document.getElementById('sub-total') as HTMLInputElement).value, 10) || 0;
-    const target = parseInt((document.getElementById('sub-target') as HTMLInputElement).value, 10) || 75;
+    const target = parseInt((document.getElementById('sub-target') as HTMLInputElement).value, 10) || loadDefaultTarget();
     if (!name) return;
     if (present > total) { alert('Attended cannot exceed total.'); return; }
     subjects.push({ id: Date.now().toString(), name, present, total, target });
@@ -349,7 +338,7 @@ import Layout from '../layouts/Layout.astro';
     (document.getElementById('sub-name') as HTMLInputElement).value = '';
     (document.getElementById('sub-present') as HTMLInputElement).value = '0';
     (document.getElementById('sub-total') as HTMLInputElement).value = '0';
-    (document.getElementById('sub-target') as HTMLInputElement).value = '75';
+    (document.getElementById('sub-target') as HTMLInputElement).value = loadDefaultTarget().toString();
     announce(tt('announcer.added', { name }));
   });
 

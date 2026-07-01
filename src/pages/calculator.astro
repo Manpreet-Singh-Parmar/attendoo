@@ -222,9 +222,8 @@ import Layout from '../layouts/Layout.astro';
   const mobileTrigger = document.getElementById('mobile-menu-trigger');
   const mobileMenu = document.getElementById('mobile-menu');
   mobileTrigger?.addEventListener('click', () => {
-    const h = mobileMenu.classList.contains('hidden');
     mobileMenu.classList.toggle('hidden');
-    mobileTrigger.setAttribute('aria-expanded', (!h).toString());
+    mobileTrigger.setAttribute('aria-expanded', (!mobileMenu.classList.contains('hidden')).toString());
   });
   document.querySelectorAll('.mobile-nav-link').forEach(l => l.addEventListener('click', () => {
     mobileMenu.classList.add('hidden');
@@ -264,14 +263,14 @@ import Layout from '../layouts/Layout.astro';
     if (!m) {
       olResult.classList.remove('hidden');
       olResult.className = 'animate-slide-in p-3.5 rounded border border-hairline dark:border-[#222] bg-canvas-soft dark:bg-[#141414]';
-      olText.innerHTML = 'Invalid format. Use e.g. <strong>13/20</strong> or <strong>15 out of 20</strong>.';
+      olText.innerHTML = t('calculator.invalidFormat');
       return;
     }
     const p = parseInt(m[1], 10), t = parseInt(m[2], 10);
     if (t === 0 || p > t) {
       olResult.classList.remove('hidden');
       olResult.className = 'animate-slide-in p-3.5 rounded border border-hairline dark:border-[#222] bg-canvas-soft dark:bg-[#141414]';
-      olText.innerHTML = p > t ? 'Attended cannot exceed total classes.' : 'Total classes cannot be zero.';
+      olText.innerHTML = p > t ? t('calculator.attendedExceeds') : t('calculator.totalZero');
       return;
     }
     const fb = computeFeedback(p, t, 75);

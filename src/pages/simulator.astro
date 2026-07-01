@@ -268,9 +268,9 @@ import Layout from '../layouts/Layout.astro';
     const delta = simPct - curPct;
 
     simBefore.textContent = curPct.toFixed(1);
-    simBeforeSub.textContent = `${present} of ${total} classes`;
+    simBeforeSub.textContent = total > 0 ? `${present} of ${total} classes` : 'No classes';
     simAfter.textContent = simPct.toFixed(1);
-    simAfterSub.textContent = `${simP} of ${simT} classes`;
+    simAfterSub.textContent = simT > 0 ? `${simP} of ${simT} classes` : 'No classes';
 
     if (delta >= 0) {
       simDelta.className = 'inline-flex items-center gap-1.5 text-xs font-semibold text-success';

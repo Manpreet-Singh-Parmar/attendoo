@@ -426,9 +426,8 @@ import Layout from '../layouts/Layout.astro';
 
   // Mobile menu
   mobileMenuTrigger?.addEventListener('click', () => {
-    const isHidden = mobileMenu.classList.contains('hidden');
     mobileMenu.classList.toggle('hidden');
-    mobileMenuTrigger.setAttribute('aria-expanded', (!isHidden).toString());
+    mobileMenuTrigger.setAttribute('aria-expanded', (!mobileMenu.classList.contains('hidden')).toString());
   });
   document.querySelectorAll('.mobile-nav-link').forEach(link => {
     link.addEventListener('click', () => {
