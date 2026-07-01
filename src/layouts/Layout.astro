@@ -5,12 +5,14 @@ interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  robots?: string;
 }
 
 const {
   title = "Attendance Calculator — Track & Optimize Your Class Attendance | Attendo",
   description = "Free online attendance calculator for students. Calculate 75% attendance, track classes, find how many classes you can bunk, and optimize your attendance percentage.",
-  ogImage = "/favicon-96x96.png"
+  ogImage = "/favicon-96x96.png",
+  robots
 } = Astro.props;
 ---
 
@@ -27,6 +29,7 @@ const {
 
 
     <meta name="generator" content={Astro.generator} />
+    {robots && <meta name="robots" content={robots} />}
 
     <!-- SEO Meta Tags -->
     <title>{title}</title>
