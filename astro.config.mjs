@@ -5,6 +5,7 @@ import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
 export default defineConfig({
+	site: 'https://attendooo.com',
 	adapter: cloudflare(),
 	devToolbar: {
 		enabled: false,

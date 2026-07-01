@@ -1,0 +1,349 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Analytics — Attendo">
+  <header class="sticky top-0 z-40 w-full border-b border-hairline dark:border-[#222] bg-canvas/80 dark:bg-black/80 backdrop-blur-md transition-colors duration-150">
+    <div class="max-w-5xl mx-auto px-4 md:px-6 w-full flex items-center justify-between h-14">
+      <a href="/" class="flex items-center gap-2 font-sans font-semibold tracking-tight text-ink dark:text-white text-base focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none rounded-sm px-1 py-0.5">
+        <img src="/favicon.svg" class="w-5 h-5" alt="Attendo" />
+        <div class="flex flex-col">
+          <span>Attendo</span>
+          <span class="text-xs text-body/50 dark:text-gray-500/50 font-normal leading-none">attendance calculator</span>
+        </div>
+      </a>
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="/calculator" class="text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-2.5 py-1.5 rounded-full transition-all">Calculator</a>
+        <a href="/subjects" class="text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-2.5 py-1.5 rounded-full transition-all">Courses</a>
+        <a href="/simulator" class="text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-2.5 py-1.5 rounded-full transition-all">Simulator</a>
+        <a href="/analytics" class="text-xs font-sans bg-canvas-soft-2 dark:bg-[#1a1a1a] text-ink dark:text-white px-2.5 py-1.5 rounded-full transition-all">Analytics</a>
+        <span class="w-px h-4 bg-hairline dark:bg-[#333] mx-1"></span>
+        <a href="/about" class="text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-2.5 py-1.5 rounded-full transition-all">About</a>
+        <a href="/contact" class="text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-2.5 py-1.5 rounded-full transition-all">Contact</a>
+        <a href="/privacy" class="text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-2.5 py-1.5 rounded-full transition-all">Privacy</a>
+        <a href="/terms" class="text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-2.5 py-1.5 rounded-full transition-all">Terms</a>
+        </nav>
+      <div class="flex items-center gap-2 sm:gap-3">
+        <div class="lang-dropdown relative">
+          <button id="lang-trigger" class="w-8 h-8 rounded-sm bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] hover:bg-canvas-soft-2 dark:hover:bg-[#1a1a1a] text-ink dark:text-white flex items-center justify-center cursor-pointer transition-all" aria-label="Switch language">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="m10.5 21 5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 0 1-3.827-5.802" /></svg>
+          </button>
+          <div id="lang-menu" class="lang-dropdown-menu hidden"></div>
+        </div>
+        <button id="theme-toggler" class="relative w-8 h-8 rounded-sm bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] hover:bg-canvas-soft-2 dark:hover:bg-[#1a1a1a] text-ink dark:text-white flex items-center justify-center cursor-pointer transition-all" aria-label="Toggle theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 block dark:hidden fill-none stroke-current stroke-2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M16.24 16.24l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" /></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 hidden dark:block fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" /></svg>
+        </button>
+        <button id="mobile-menu-trigger" class="relative w-8 h-8 rounded-sm bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] hover:bg-canvas-soft-2 dark:hover:bg-[#1a1a1a] text-ink dark:text-white flex md:hidden items-center justify-center cursor-pointer transition-all" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="mobile-menu">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path class="line-top transition-all duration-200 origin-center" d="M4 6h16" /><path class="line-mid transition-all duration-200" d="M4 12h16" /><path class="line-bot transition-all duration-200 origin-center" d="M4 18h16" /></svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden border-t border-hairline dark:border-[#222] bg-canvas dark:bg-black md:hidden">
+      <div class="px-4 py-4 flex flex-col gap-2">
+        <a href="/calculator" class="mobile-nav-link text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-4 py-2.5 rounded transition-all">Calculator</a>
+        <a href="/subjects" class="mobile-nav-link text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-4 py-2.5 rounded transition-all">Courses</a>
+        <a href="/simulator" class="mobile-nav-link text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-4 py-2.5 rounded transition-all">Simulator</a>
+        <a href="/analytics" class="mobile-nav-link text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-4 py-2.5 rounded transition-all">Analytics</a>
+        <div class="h-px bg-hairline dark:bg-[#222] my-1"></div>
+        <a href="/about" class="mobile-nav-link text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-4 py-2.5 rounded transition-all">About</a>
+        <a href="/contact" class="mobile-nav-link text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-4 py-2.5 rounded transition-all">Contact</a>
+        <a href="/privacy" class="mobile-nav-link text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-4 py-2.5 rounded transition-all">Privacy</a>
+        <a href="/terms" class="mobile-nav-link text-xs font-sans text-body dark:text-gray-400 hover:text-ink dark:hover:text-white hover:bg-canvas-soft-2 dark:hover:bg-[#111] px-4 py-2.5 rounded transition-all">Terms</a>
+        </div>
+      </div>
+  </header>
+
+  <main id="main-content" class="flex-grow w-full focus:outline-none">
+    <div class="max-w-5xl mx-auto px-4 md:px-6 py-12">
+      <section id="analytics-dashboard" class="scroll-mt-20 space-y-6">
+        <div class="border-b border-hairline dark:border-[#222] pb-3 mb-6">
+          <h2 class="text-xl font-semibold tracking-tight text-ink dark:text-white" data-i18n="analytics.title">Global standing.</h2>
+        </div>
+
+        <!-- Cards grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Aggregate Attendance -->
+          <div class="bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] rounded-md shadow-level2 p-5 flex flex-col space-y-3">
+            <h3 class="text-[10px] font-mono text-mute dark:text-gray-500 uppercase tracking-wider" data-i18n="analytics.aggregate">Aggregate Attendance</h3>
+            <div class="flex items-baseline gap-1">
+              <span id="agg-percentage" class="text-3xl font-bold tracking-tight tabular-nums text-ink dark:text-white">0%</span>
+            </div>
+            <div class="relative w-full h-2 bg-canvas-soft-2 dark:bg-[#1a1a1a] rounded-full overflow-hidden border border-hairline/50 dark:border-[#222]">
+              <div id="agg-bar" class="h-full rounded-full transition-all duration-300 bg-primary dark:bg-white" style="width: 0%"></div>
+            </div>
+            <p id="agg-description" class="text-xs text-body dark:text-gray-400 leading-relaxed" data-i18n="analytics.avgDesc">Weighted sum of all present divided by total classes.</p>
+          </div>
+
+          <!-- Course Health -->
+          <div class="bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] rounded-md shadow-level2 p-5 flex flex-col space-y-3">
+            <h3 class="text-[10px] font-mono text-mute dark:text-gray-500 uppercase tracking-wider" data-i18n="analytics.courseHealth">Course Health</h3>
+            <div class="flex items-center gap-4">
+              <div class="relative w-20 h-20">
+                <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
+                  <circle cx="18" cy="18" r="15.5" fill="none" stroke="currentColor" stroke-width="2" class="text-canvas-soft-2 dark:text-[#1a1a1a]"></circle>
+                  <circle id="health-circle-safe" cx="18" cy="18" r="15.5" fill="none" stroke="currentColor" stroke-width="2" class="text-success" stroke-dasharray="0 100" stroke-linecap="round"></circle>
+                  <circle id="health-circle-risk" cx="18" cy="18" r="15.5" fill="none" stroke="currentColor" stroke-width="2" class="text-warning" stroke-dasharray="0 100" stroke-linecap="round"></circle>
+                </svg>
+                <span id="health-total" class="absolute inset-0 flex items-center justify-center text-xs font-semibold tabular-nums text-ink dark:text-white">0</span>
+              </div>
+              <div class="space-y-2">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-success"></span>
+                  <span class="text-xs text-body dark:text-gray-400"><span id="health-safe-count" class="font-semibold text-ink dark:text-white tabular-nums">0</span> <span data-i18n="analytics.safe">safe</span></span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-warning"></span>
+                  <span class="text-xs text-body dark:text-gray-400"><span id="health-risk-count" class="font-semibold text-ink dark:text-white tabular-nums">0</span> <span data-i18n="analytics.risk">at risk</span></span>
+                </div>
+              </div>
+            </div>
+            <p class="text-xs text-body dark:text-gray-400 leading-relaxed" data-i18n="analytics.healthDesc">Courses currently meeting their target threshold.</p>
+          </div>
+
+          <!-- Standing Verdict -->
+          <div class="bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] rounded-md shadow-level2 p-5 flex flex-col space-y-3">
+            <h3 class="text-[10px] font-mono text-mute dark:text-gray-500 uppercase tracking-wider" data-i18n="analytics.standingVerdict">Standing Verdict</h3>
+            <div id="standing-badge" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-xs font-semibold font-mono uppercase border bg-warning/5 dark:bg-warning/10 text-warning border-warning/20">
+              <span id="standing-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" /></svg>
+              </span>
+              <span id="standing-label" data-i18n="analytics.noData">NO DATA</span>
+            </div>
+            <p id="standing-description" class="text-xs text-body dark:text-gray-400 leading-relaxed" data-i18n="analytics.standingDescNoData">Global standing evaluation is pending data entries.</p>
+          </div>
+        </div>
+
+        <!-- Subject breakdown list -->
+        <div class="border-t border-hairline dark:border-[#222] pt-6 mt-6">
+          <h3 class="text-sm font-semibold tracking-tight text-ink dark:text-white mb-4">Subject Breakdown</h3>
+          <div id="subjects-breakdown" class="space-y-2">
+            <p class="text-xs text-body dark:text-gray-400">Add subjects in the <a href="/subjects" class="text-primary dark:text-white underline underline-offset-2 hover:no-underline">Courses</a> page to see your analytics breakdown.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-hairline dark:border-[#222] bg-canvas dark:bg-[#0a0a0a] py-12 mt-12">
+    <div class="max-w-5xl mx-auto px-4 md:px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="col-span-2 md:col-span-1">
+          <a href="/" class="flex items-center gap-2 font-sans font-semibold tracking-tight text-ink dark:text-white text-base mb-3">
+            <img src="/favicon.svg" class="w-5 h-5" alt="Attendo" />
+            <span>Attendo</span>
+          </a>
+          <p class="text-xs text-body dark:text-gray-400 leading-relaxed" data-i18n="footer.tagline">Free online attendance calculator and tracker for students. Calculate 75% attendance, track multiple subjects, and optimize your class attendance.</p>
+        </div>
+        <div>
+          <h4 class="text-[10px] font-mono text-mute dark:text-gray-500 uppercase tracking-wider mb-3" data-i18n="footer.tools">Tools</h4>
+          <ul class="space-y-2">
+            <li><a href="/calculator" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.calc">Calculator</a></li>
+            <li><a href="/subjects" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.courses">Courses</a></li>
+            <li><a href="/simulator" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.simulator">Simulator</a></li>
+            <li><a href="/analytics" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.analytics">Analytics</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-[10px] font-mono text-mute dark:text-gray-500 uppercase tracking-wider mb-3" data-i18n="footer.quickLinks">Quick Links</h4>
+          <ul class="space-y-2">
+            <li><a href="/settings" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.settings">Settings</a></li>
+            <li><a href="/calculator" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.75calc">75% Calculator</a></li>
+            <li><a href="/simulator" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors" data-i18n="footer.bunkCalc">Bunk Calculator</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-[10px] font-mono text-mute dark:text-gray-500 uppercase tracking-wider mb-3">Company</h4>
+          <ul class="space-y-2">
+            <li><a href="/about" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors">About Us</a></li>
+            <li><a href="/contact" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors">Contact Us</a></li>
+            <li><a href="/privacy" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors">Privacy Policy</a></li>
+            <li><a href="/terms" class="text-xs text-body dark:text-gray-400 hover:text-ink dark:hover:text-white transition-colors">Terms &amp; Conditions</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-10 pt-6 border-t border-hairline dark:border-[#222] flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-[10px] text-mute dark:text-gray-500">&copy; 2026 Attendo. <span data-i18n="footer.rights">All rights reserved.</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <div id="aria-announcer" class="sr-only" aria-live="polite"></div>
+</Layout>
+
+<script>
+  import { applyTranslations, setLanguage, getCurrentLang, t, tt, supportedLanguages } from '../lib/i18n';
+  import { loadSubjects, computeFeedback } from '../lib/store';
+
+  interface Subject {
+    id: string;
+    name: string;
+    present: number;
+    total: number;
+    target: number;
+  }
+
+  function computeAnalytics(subjects: Subject[]) {
+    const totalPresent = subjects.reduce((s, sub) => s + sub.present, 0);
+    const totalConducted = subjects.reduce((s, sub) => s + sub.total, 0);
+
+    let aggregate = 0;
+    if (totalConducted > 0) {
+      aggregate = (totalPresent / totalConducted) * 100;
+    }
+
+    const feedbacks = subjects.map(sub => computeFeedback(sub.present, sub.total, sub.target));
+    const safeCount = feedbacks.filter(fb => fb.status === 'safe').length;
+    const riskCount = feedbacks.filter(fb => fb.status === 'risk').length;
+
+    let standing: 'onTrack' | 'atRisk' | 'noData';
+    if (subjects.length === 0) {
+      standing = 'noData';
+    } else if (riskCount === 0) {
+      standing = 'onTrack';
+    } else {
+      standing = 'atRisk';
+    }
+
+    return { aggregate, totalPresent, totalConducted, safeCount, riskCount, standing, feedbacks };
+  }
+
+  const aggPct = document.getElementById('agg-percentage');
+  const aggBar = document.getElementById('agg-bar');
+  const aggDesc = document.getElementById('agg-description');
+  const healthSafeCount = document.getElementById('health-safe-count');
+  const healthRiskCount = document.getElementById('health-risk-count');
+  const healthTotal = document.getElementById('health-total');
+  const healthCircleSafe = document.getElementById('health-circle-safe');
+  const healthCircleRisk = document.getElementById('health-circle-risk');
+  const standingBadge = document.getElementById('standing-badge');
+  const standingLabel = document.getElementById('standing-label');
+  const standingIcon = document.getElementById('standing-icon');
+  const standingDesc = document.getElementById('standing-description');
+  const breakdown = document.getElementById('subjects-breakdown');
+
+  function renderAnalytics() {
+    const subjects = loadSubjects();
+    const data = computeAnalytics(subjects);
+
+    // Aggregate
+    if (aggPct) aggPct.textContent = data.aggregate.toFixed(1) + '%';
+    if (aggBar) aggBar.style.width = Math.min(100, data.aggregate) + '%';
+    if (aggDesc) {
+      if (subjects.length === 0) {
+        aggDesc.textContent = t('analytics.avgDescNoData');
+      } else {
+        aggDesc.textContent = tt('analytics.avgDescData', { present: data.totalPresent.toString(), total: data.totalConducted.toString() });
+      }
+    }
+
+    // Course Health
+    const total = data.safeCount + data.riskCount;
+    if (healthSafeCount) healthSafeCount.textContent = data.safeCount.toString();
+    if (healthRiskCount) healthRiskCount.textContent = data.riskCount.toString();
+    if (healthTotal) healthTotal.textContent = total.toString();
+
+    if (healthCircleSafe && total > 0) {
+      const safeAngle = (data.safeCount / total) * 100;
+      healthCircleSafe.setAttribute('stroke-dasharray', `${safeAngle} ${100 - safeAngle}`);
+    }
+    if (healthCircleRisk && total > 0) {
+      const riskAngle = (data.riskCount / total) * 100;
+      healthCircleRisk.setAttribute('stroke-dasharray', `${riskAngle} ${100 - riskAngle}`);
+    }
+    if (healthCircleSafe && total === 0) healthCircleSafe.setAttribute('stroke-dasharray', '0 100');
+    if (healthCircleRisk && total === 0) healthCircleRisk.setAttribute('stroke-dasharray', '0 100');
+
+    // Standing Verdict
+    if (standingBadge && standingLabel && standingIcon) {
+      if (data.standing === 'onTrack') {
+        standingBadge.className = 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-xs font-semibold font-mono uppercase border bg-success/5 dark:bg-success/10 text-success border-success/20';
+        standingIcon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>';
+        standingLabel.textContent = t('analytics.onTrack').toUpperCase();
+      } else if (data.standing === 'atRisk') {
+        standingBadge.className = 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-xs font-semibold font-mono uppercase border bg-warning/5 dark:bg-warning/10 text-warning border-warning/20';
+        standingIcon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" /></svg>';
+        standingLabel.textContent = t('analytics.atRisk').toUpperCase();
+      } else {
+        standingBadge.className = 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-xs font-semibold font-mono uppercase border bg-mute/5 dark:bg-gray-500/10 text-mute dark:text-gray-400 border-mute/20 dark:border-gray-500/20';
+        standingIcon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 0 0-1.883 2.542l.857 6a2.25 2.25 0 0 0 2.227 1.932H19.05a2.25 2.25 0 0 0 2.227-1.932l.857-6a2.25 2.25 0 0 0-1.883-2.542m-16.5 0V6A2.25 2.25 0 0 1 6 3.75h3.879a1.5 1.5 0 0 1 1.06.44l2.122 2.12a1.5 1.5 0 0 0 1.06.44H18A2.25 2.25 0 0 1 20.25 9v.776" /></svg>';
+        standingLabel.textContent = t('analytics.noData').toUpperCase();
+      }
+    }
+
+    if (standingDesc) {
+      if (data.standing === 'noData') {
+        standingDesc.textContent = t('analytics.standingDescNoData');
+      } else if (data.standing === 'onTrack') {
+        standingDesc.textContent = tt('analytics.standingDescOnTrack', { n: subjects.length.toString() });
+      } else {
+        standingDesc.textContent = tt('analytics.standingDescAtRisk', { n: data.riskCount.toString() });
+      }
+    }
+
+    // Breakdown list
+    if (breakdown) {
+      if (subjects.length === 0) {
+        breakdown.innerHTML = '<p class="text-xs text-body dark:text-gray-400">Add subjects in the <a href="/subjects" class="text-primary dark:text-white underline underline-offset-2 hover:no-underline">Courses</a> page to see your analytics breakdown.</p>';
+      } else {
+        breakdown.innerHTML = subjects.map((sub, i) => {
+          const fb = data.feedbacks[i];
+          const pct = fb.percentage.toFixed(1);
+          const sc = fb.status === 'safe' ? 'text-success' : 'text-warning';
+          const pctLimit = Math.min(100, Math.max(0, parseFloat(pct)));
+          return `
+            <div class="flex items-center gap-3 bg-canvas dark:bg-[#111] border border-hairline dark:border-[#222] rounded-md p-3 transition-all">
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-sm font-medium text-ink dark:text-white truncate">${sub.name}</span>
+                  <span class="text-xs font-semibold font-mono tabular-nums whitespace-nowrap ${sc}">${pct}%</span>
+                </div>
+                <div class="relative w-full h-1 mt-1.5 bg-canvas-soft-2 dark:bg-[#1a1a1a] rounded-full overflow-hidden border border-hairline/50 dark:border-[#222]">
+                  <div class="h-full rounded-full transition-all duration-300 ${fb.status === 'safe' ? 'bg-success' : 'bg-warning'}" style="width: ${pctLimit}%"></div>
+                  <div class="absolute top-0 bottom-0 w-[2px] bg-red-500/60 dark:bg-red-400/80" style="left: ${sub.target}%"></div>
+                </div>
+                <div class="flex items-center gap-2 mt-1">
+                  <span class="text-[10px] text-mute dark:text-gray-500 tabular-nums">${sub.present}/${sub.total}</span>
+                  <span class="text-[10px] text-mute dark:text-gray-500">target: ${sub.target}%</span>
+                </div>
+              </div>
+              <span class="text-[10px] font-semibold font-mono uppercase px-1.5 py-0.5 rounded border ${sc} ${fb.status === 'safe' ? 'border-success/20 bg-success/5 dark:bg-success/10' : 'border-warning/20 bg-warning/5 dark:bg-warning/10'}">${fb.status === 'safe' ? t('subjects.safe') : t('subjects.risk')}</span>
+            </div>`;
+        }).join('');
+      }
+    }
+  }
+
+  // Theme
+  document.getElementById('theme-toggler')?.addEventListener('click', () => {
+    document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+  });
+
+  // Mobile
+  const mt = document.getElementById('mobile-menu-trigger');
+  const mm = document.getElementById('mobile-menu');
+  mt?.addEventListener('click', () => { mm.classList.toggle('hidden'); mt.setAttribute('aria-expanded', (!mm.classList.contains('hidden')).toString()); });
+  document.querySelectorAll('.mobile-nav-link').forEach(l => l.addEventListener('click', () => { mm.classList.add('hidden'); mt.setAttribute('aria-expanded', 'false'); }));
+
+  // Lang
+  const lt = document.getElementById('lang-trigger');
+  const lm = document.getElementById('lang-menu');
+  lt?.addEventListener('click', () => lm.classList.toggle('hidden'));
+  document.addEventListener('click', (e) => { if (!e.target.closest('.lang-dropdown')) lm?.classList.add('hidden'); });
+
+  function populateLanguageMenus() {
+    const currentLang = getCurrentLang();
+    if (lm) {
+      lm.innerHTML = supportedLanguages.map(l =>
+        `<button data-lang="${l.code}" class="${l.code === currentLang ? 'active' : ''}">${l.name}</button>`
+      ).join('');
+      lm.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { const l = b.getAttribute('data-lang'); if (l) setLanguage(l); }));
+    }
+  }
+  populateLanguageMenus();
+
+  renderAnalytics();
+  applyTranslations();
+</script>

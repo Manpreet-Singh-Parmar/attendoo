@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://Attendo.com/sitemap.xml
+Sitemap: https://attendooo.com/sitemap.xml
